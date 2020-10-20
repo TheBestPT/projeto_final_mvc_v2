@@ -44,7 +44,7 @@ class AssociacoesController extends MainController{
             echo 'Não tem permissoes para aceder a esta pagina';
             return;
         }
-        $modelo = $this->load_model('associacoes/associacoes-adm-model');
+        $modelo = $this->load_model('associacoes/socios-adm-model');
         require ABSPATH . '/views/_includes/header.php';
         require ABSPATH . '/views/_includes/menu.php';
         require ABSPATH . '/views/associacoes/assoc_adm_specified_view.php';
@@ -63,7 +63,7 @@ class AssociacoesController extends MainController{
             echo 'Não tem permissoes para aceder a esta pagina';
             return;
         }
-        $modelo = $this->load_model('associacoes/associacoes-adm-model');
+        $modelo = $this->load_model('associacoes/quotas-adm-model');
         require ABSPATH . '/views/_includes/header.php';
         require ABSPATH . '/views/_includes/menu.php';
         require ABSPATH . '/views/associacoes/assoc-quotas-view.php';
@@ -82,7 +82,7 @@ class AssociacoesController extends MainController{
             echo 'Não tem permissoes para aceder a esta pagina';
             return;
         }
-        $modelo = $this->load_model('associacoes/associacoes-adm-model');
+        $modelo = $this->load_model('associacoes/imagens-adm-model');
         require ABSPATH . '/views/_includes/header.php';
         require ABSPATH . '/views/_includes/menu.php';
         require ABSPATH . '/views/associacoes/image_adm_view.php';
@@ -101,7 +101,7 @@ class AssociacoesController extends MainController{
             echo 'Não tem permissoes para aceder a esta pagina';
             return;
         }
-        $modelo = $this->load_model('eventos/eventos-adm-model');
+        $modelo = $this->load_model('associacoes/eventos-adm-model');
         require ABSPATH . '/views/_includes/header.php';
         require ABSPATH . '/views/_includes/menu.php';
         require ABSPATH . '/views/associacoes/eventos-assoc-view.php';

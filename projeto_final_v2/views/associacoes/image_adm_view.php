@@ -5,7 +5,7 @@ if(chk_array($this->parametros, 0))
     $id_assoc = chk_array($this->parametros, 0);
 else
     header('location: '.HOME_URI.'associacoes/adm');
-$modelo->inserir_img();
+$modelo->insere_items();
 $modelo->delete_items();
 $adm_uri = HOME_URI.'/associacoes/admimages/'.$id_assoc.'/';
 $edit_uri = $adm_uri.'edit/';
@@ -36,7 +36,7 @@ $delete_uri = $adm_uri.'del/';
             <tr>
                 <td><img src="<?echo HOME_URI.'/views/_uploads/'.$img['titulo'];?>" width="300" height="300"></td>
                 <td>
-                    <a href="<? echo $delete_uri.$img['idImagem'].'/img';?>" >Apagar:</a>
+                    <a href="<? echo $delete_uri.$img['idImagem'];?>" >Apagar:</a>
                 </td>
             </tr>
         <? endforeach;?>

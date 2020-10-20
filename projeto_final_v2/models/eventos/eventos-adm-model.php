@@ -1,29 +1,18 @@
 <?php
-class EventosAdmModel extends ItemsAbstract{
+class EventosAdmModel extends ItemsModel{
 
-    function insere_form()
+    public $table_name = 'eventos';
+    public $idTable = 'idEvento';
+    public $urlName = 'evento';
+    public $form = 'insere_evento';
+    public $haveImage = true;
+    public function __construct($db = false, $controller = null)
     {
-        return 'insere_evento';
-    }
-
-    function table_name()
-    {
-        return 'eventos';
-    }
-
-    function id_table()
-    {
-        return 'idEvento';
-    }
-
-    function url_name()
-    {
-        return 'evento';
-    }
-
-    function haveImage()
-    {
-        return true;
+        $this->db = $db;
+        $this->controller = $controller;
+        $this->parametros = $this->controller->parametros;
+        $this->userdata = $this->controller->userdata;
+        parent::__construct($this->table_name, $this->idTable, $this->urlName, $this->form, $this->haveImage, $this->db, $this->controller);
     }
 
     public function get_assoc_by_id_evento(){

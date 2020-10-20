@@ -8,7 +8,7 @@ else
 $adm_uri = HOME_URI.'/associacoes/eventosassoc/'.$id_assoc.'/';
 $edit_uri = $adm_uri.'edit/';
 $delete_uri = $adm_uri.'del/';
-$modelo->insere_evento();
+$modelo->insere_items();
 $modelo->obter_items();
 $modelo->delete_items();
 ?>

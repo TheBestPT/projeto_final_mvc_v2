@@ -8,7 +8,7 @@ else
 $adm_uri = HOME_URI.'/associacoes/assocquotas/'.$id_soc.'/';
 $edit_uri = $adm_uri.'edit/';
 $delete_uri = $adm_uri.'del/';
-$modelo->inserir_quotas();
+$modelo->insere_items();
 $modelo->obter_items();
 $modelo->delete_items();
 ?>
@@ -69,9 +69,9 @@ $modelo->delete_items();
                 <td><? echo $quotas['dataTermino'];?></td>
                 <td><? if($quotas['pago'] == 0) echo "Não pago"; else echo "Pago";?></td>
                 <td>
-                    <a href="<? echo $edit_uri.$quotas['idQuota'].'/qo';?>" >Editar:</a>
+                    <a href="<? echo $edit_uri.$quotas['idQuota'];?>" >Editar:</a>
                     &nbsp;&nbsp;
-                    <a href="<? echo $delete_uri.$quotas['idQuota'].'/qo';?>" >Delete:</a>
+                    <a href="<? echo $delete_uri.$quotas['idQuota'];?>" >Delete:</a>
                 </td>
             </tr>
         <? endforeach;?>

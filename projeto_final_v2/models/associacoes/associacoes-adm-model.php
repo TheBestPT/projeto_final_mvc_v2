@@ -1,28 +1,18 @@
 <?php
-class AssociacoesAdmModel extends ItemsAbstract {
-    function insere_form()
+class AssociacoesAdmModel extends ItemsModel {
+    public $table_name = 'associacao';
+    public $idTable = 'idAssoc';
+    public $urlName = 'associacoes';
+    public $form = 'insere_assoc';
+    public $haveImage = false;
+    public $action = false;
+    public function __construct($db = false, $controller = null)
     {
-        return 'insere_assoc';
-    }
-
-    function table_name()
-    {
-        return 'associacao';
-    }
-
-    function id_table()
-    {
-        return 'idAssoc';
-    }
-
-    function url_name()
-    {
-        return 'associacoes';
-    }
-
-    function haveImage()
-    {
-        return false;
+        $this->db = $db;
+        $this->controller = $controller;
+        $this->parametros = $this->controller->parametros;
+        $this->userdata = $this->controller->userdata;
+        parent::__construct($this->table_name, $this->idTable, $this->urlName, $this->form, $this->haveImage, $this->action, $this->db, $this->controller);
     }
 
     public function listarQuotas(){
@@ -107,18 +97,8 @@ class AssociacoesAdmModel extends ItemsAbstract {
         $this->form_msg = '<p class="error">Erro ao enviar dados!</p>';
     }
 
-    public function getQuotas($id = 0){
-        if($id!=0){
-            $query = $this->db->query('SELECT * FROM quotas WHERE idSocio = '.$id);
-            return $query->fetchAll();
-        }
-    }
 
-    public function get_images_by_id($id = 0){
-        if($id!=0){
-            $query = $this->db->query('SELECT * FROM imagem WHERE idAssoc = '.$id);
-            return $query->fetchAll();
-        }
-    }
+
+
 }
 ?>

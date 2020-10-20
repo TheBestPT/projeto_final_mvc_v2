@@ -7,13 +7,13 @@ define('ABSPATH', dirname(__FILE__));
 define('UP_ABSPATH', ABSPATH.'/views/_uploads');
 
 //URL da home
-define('HOME_URI', 'http://localhost/projeto_final');
+define('HOME_URI', 'http://localhost/projeto_final_v2');
 
 //Nome do host da base de dados
 define('HOSTNAME', 'localhost');
 
 //Nome da BD
-define('DB_NAME', 'projeto_final_mvc');
+define('DB_NAME', 'projeto_final_mvc_v2');
 
 //Utilizador do BD
 define('DB_USER', 'root');

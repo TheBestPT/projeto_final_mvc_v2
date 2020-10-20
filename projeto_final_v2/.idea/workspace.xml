@@ -21,24 +21,24 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/views/noticias" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
     <property name="settings.editor.selected.configurable" value="http.proxy" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\projeto_final\views\associacoes" />
+      <recent name="C:\xampp\htdocs\projeto_final\views\eventos" />
+      <recent name="C:\xampp\htdocs\projeto_final\classes" />
+      <recent name="C:\xampp\htdocs\projeto_final\models" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\projeto_final\views\noticias" />
       <recent name="C:\xampp\htdocs\projeto_final\models\noticias" />
       <recent name="C:\xampp\htdocs\projeto_final\views\socio-register" />
       <recent name="C:\xampp\htdocs\projeto_final\controllers" />
       <recent name="C:\xampp\htdocs\projeto_final\models\socio-register" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\projeto_final\views\associacoes" />
-      <recent name="C:\xampp\htdocs\projeto_final\views\eventos" />
-      <recent name="C:\xampp\htdocs\projeto_final\classes" />
-      <recent name="C:\xampp\htdocs\projeto_final\models" />
     </key>
   </component>
   <component name="RunManager">
@@ -80,6 +80,7 @@
       <workItem from="1602881734695" duration="3564000" />
       <workItem from="1602935669009" duration="28458000" />
       <workItem from="1603022851857" duration="14027000" />
+      <workItem from="1603225339336" duration="8768000" />
     </task>
     <servers />
   </component>
@@ -91,21 +92,21 @@
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state x="414" y="30" width="1092" height="1050" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.30.1920.1050@0.30.1920.1050" timestamp="1602438707284" />
-    <state x="764" y="223" key="#com.intellij.ide.util.MemberChooser" timestamp="1602871029803">
+    <state x="764" y="223" key="#com.intellij.ide.util.MemberChooser" timestamp="1603226347577">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
-    <state x="764" y="223" key="#com.intellij.ide.util.MemberChooser/0.30.1920.1050@0.30.1920.1050" timestamp="1602871029803" />
+    <state x="764" y="223" key="#com.intellij.ide.util.MemberChooser/0.30.1920.1050@0.30.1920.1050" timestamp="1603226347577" />
     <state x="686" y="247" key="FileChooserDialogImpl" timestamp="1602428139482">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state x="2606" y="247" key="FileChooserDialogImpl/0.30.1536.834/1920.30.1920.1050@1920.30.1920.1050" timestamp="1602186095415" />
     <state x="549" y="202" key="FileChooserDialogImpl/0.30.1536.834@0.30.1536.834" timestamp="1602166304926" />
     <state x="686" y="247" key="FileChooserDialogImpl/0.30.1920.1050@0.30.1920.1050" timestamp="1602428139482" />
-    <state x="755" y="453" key="NewPhpFileDialog" timestamp="1602944731692">
+    <state x="755" y="453" key="NewPhpFileDialog" timestamp="1603233466922">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>
     <state x="604" y="366" key="NewPhpFileDialog/0.30.1536.834@0.30.1536.834" timestamp="1602169675513" />
-    <state x="755" y="453" key="NewPhpFileDialog/0.30.1920.1050@0.30.1920.1050" timestamp="1602944731692" />
+    <state x="755" y="453" key="NewPhpFileDialog/0.30.1920.1050@0.30.1920.1050" timestamp="1603233466922" />
     <state x="461" y="199" key="SettingsEditor" timestamp="1602434578787">
       <screen x="0" y="30" width="1920" height="1050" />
     </state>

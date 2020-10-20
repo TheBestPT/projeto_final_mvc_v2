@@ -60,9 +60,9 @@ $modelo->delete_items();
                 <td><? echo $assoc['nome'];?></td>
                 <td><? echo $assoc['email'];?></td>
                 <td>
-                    <a href="<? echo $edit_uri.$assoc['idSocio'].'/soc';?>" >Editar:</a>
+                    <a href="<? echo $edit_uri.$assoc['idSocio'];?>" >Editar:</a>
                     &nbsp;&nbsp;
-                    <a href="<? echo $delete_uri.$assoc['idSocio'].'/soc';?>" >Delete:</a>
+                    <a href="<? echo $delete_uri.$assoc['idSocio'];?>" >Delete:</a>
                     &nbsp;&nbsp;
                     <a href="<? echo $admin_quota_uri.$assoc['idSocio'];?>" >Quotas:</a>
                 </td>
