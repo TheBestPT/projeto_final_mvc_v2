@@ -14,5 +14,13 @@ class NoticiasAdmModel extends ItemsModel {
         $this->userdata = $this->controller->userdata;
         parent::__construct($this->table_name, $this->idTable, $this->urlName, $this->form, $this->haveImage, $this->action, $this->db, $this->controller);
     }
+
+    public function getNoticiasById($id = 0){
+        if($id != 0){
+            $query = $this->db->query('SELECT * FROM '.$this->table_name.' WHERE idAssoc = '.$id);
+            return $query->fetchAll();
+        }
+        return [];
+    }
 }
 ?>

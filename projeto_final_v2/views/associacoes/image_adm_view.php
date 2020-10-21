@@ -34,7 +34,7 @@ $delete_uri = $adm_uri.'del/';
         <tbody>
         <? foreach($lista as $img): ?>
             <tr>
-                <td><img src="<?echo HOME_URI.'/views/_uploads/'.$img['titulo'];?>" width="300" height="300"></td>
+                <td><img src="<?echo HOME_URI.'/views/_uploads/'.$img['imagem'];?>" width="300" height="300"></td>
                 <td>
                     <a href="<? echo $delete_uri.$img['idImagem'];?>" >Apagar:</a>
                 </td>

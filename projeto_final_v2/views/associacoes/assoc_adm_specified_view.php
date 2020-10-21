@@ -40,7 +40,7 @@ $modelo->delete_items();
     </table>
     <input type="hidden" name="insere_soc" value="1"/>
 </form>
-<a href="http://localhost/projeto_final/noticias/adm/">New noticia</a>
+<a href="<? echo HOME_URI.'/noticias/adm/'.$id_assoc?>">New noticia</a>
 <div class="wrap">
     <?
     $lista = $modelo->getSociosAssoc($id_assoc);

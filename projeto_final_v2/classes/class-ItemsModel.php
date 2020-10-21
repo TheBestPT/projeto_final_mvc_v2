@@ -341,4 +341,9 @@ class ItemsModel extends MainModel{
         $query = $this->db->query('SELECT * FROM socios WHERE idAssoc = '.$id);
         return $query->fetchAll();
     }
+
+    public function notAction(){
+        $this->action = ($this->action) ? false : true;
+        return $this->action;
+    }
 }

@@ -101,7 +101,7 @@ class AssociacoesController extends MainController{
             echo 'Não tem permissoes para aceder a esta pagina';
             return;
         }
-        $modelo = $this->load_model('associacoes/eventos-adm-model');
+        $modelo = $this->load_model('associacoes/eventos-assoc-model');
         require ABSPATH . '/views/_includes/header.php';
         require ABSPATH . '/views/_includes/menu.php';
         require ABSPATH . '/views/associacoes/eventos-assoc-view.php';

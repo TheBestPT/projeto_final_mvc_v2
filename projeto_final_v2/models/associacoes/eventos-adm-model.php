@@ -17,21 +17,6 @@ class EventosAdmModel extends ItemsModel
         parent::__construct($this->table_name, $this->idTable, $this->urlName, $this->form, $this->haveImage, $this->action, $this->db, $this->controller);
     }
 
-    public function list_by_id_eventos_assoc($id = 0){
-        if($id != 0){
-            $query = $this->db->query('SELECT * FROM associaeventos WHERE idEvento = '.$id);
-            return $query->fetchAll();
-        }
-    }
-
-    public function list_by_id_eventos($id){
-        if($id != 0){
-            $query = $this->db->query('SELECT * FROM associacao WHERE idAssoc = '.$id);
-            return $query->fetchAll();
-        }
-        return "Sem associação";
-    }
-
     public function get_eventos_nome(){
         $query = $this->db->query('SELECT * FROM eventos');
         return $query->fetchAll();

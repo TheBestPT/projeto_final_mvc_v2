@@ -25,7 +25,7 @@ $delete_uri = $adm_uri.'del/';
             <tr>
                 <td>
                     Evento: <br>
-                    <input type="text" name="evento" value="<? echo htmlentities(chk_array($modelo->form_data, 'evento'));?>" />
+                    <textarea name="evento"><? echo htmlentities(chk_array($modelo->form_data, 'evento'));?></textarea>
                 </td>
             </tr>
             <tr>

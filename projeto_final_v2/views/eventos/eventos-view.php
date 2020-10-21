@@ -14,11 +14,14 @@
             <p>Titulo: <?echo $eventos['titulo'];?></p>
             <p>Evento: <?echo $eventos['evento'];?></p>
             <p>Associacões que estao fazendo este evento: <?$list_assoc = $modelo->list_by_id_eventos_assoc($eventos['idEvento']);
-                $assoc = 0;
+                $assoc = [];
                 foreach ($list_assoc as $item) {
                     $assoc = $modelo->list_by_id_eventos($item['idAssoc']);
-                    foreach ($assoc as $nome)
-                        echo $nome['nome'] . ' ';
+                    if($assoc){
+                        foreach ($assoc as $nome)
+                            echo $nome['nome'] . ' ';
+                    }else
+                        echo "Sem associacao";
                 }
             ?></p>
             <p>

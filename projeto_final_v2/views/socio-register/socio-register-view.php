@@ -8,7 +8,7 @@
     $modelo->del_user($parametros);
     ?>
     <h1>Criar e editar socios:</h1>
-    <form method="post" action="">
+    <form method="post" action="" enctype="multipart/form-data">
         <table class="form-table">
         <tr>
             <td>Nome: </td>
@@ -30,6 +30,10 @@
             <td>Permissions<br><small>(Separate Permissions using commas</small>:</td>
             <td><input type="text" name="socio_permissions" value="<?php echo htmlentities(chk_array($modelo->form_data, 'socio_permissions')); ?>"/></td>
         </tr>
+       <tr>
+           <td>Imagem de perfil</td>
+           <td><input type="file" name="imagem" value=""/></td>
+       </tr>
         <tr>
             <td>
                 <label for="idAssoc">Escolhe a associação:</label>
@@ -66,6 +70,7 @@
                 <th>Email</th>
                 <th>Permissões</th>
                 <th>Associacao</th>
+                <th>Imagem de perfil</th>
                 <th>Edição</th>
             </tr>
         </thead>
@@ -78,6 +83,7 @@
                 <td><?php echo $fetch_userdata['email'] ?></td>
                 <td><?php echo implode(',' , unserialize($fetch_userdata['socio_permissions'])) ?></td>
                 <td><?php echo $modelo->get_assoc_by_id($fetch_userdata['idAssoc']);?></td>
+                <td><img src="<?echo HOME_URI.'/views/_uploads/'.$fetch_userdata['imagem'];?>" width="30px"></td>
                 <td>
                     <a href="<?php echo HOME_URI?>/socio-register/index/edit/<?php echo $fetch_userdata['idSocio']?>">Edit</a>
                     <a href="<?php echo HOME_URI?>/socio-register/index/del/<?php echo $fetch_userdata['idSocio']?>">Delete</a>

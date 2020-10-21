@@ -14,7 +14,7 @@ class LoginController extends MainController{
 
     public function delete(){
         $this->logout();
-        header('location:http://localhost/projeto_final/login');
+        header('location:'.HOME_URI.'/login');
     }
 }
 ?>

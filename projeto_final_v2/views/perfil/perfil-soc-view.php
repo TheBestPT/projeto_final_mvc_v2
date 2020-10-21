@@ -8,11 +8,13 @@ else
 $socio = $modelo->get_soc_by_id($id_soc);
 $adm_uri = HOME_URI.'/perfil/me/'.$id_soc.'/';
 $pagamento_uri = $adm_uri.'pay/';
+$cancela_uri = $adm_uri.'can/';
 $modelo->pay($this->parametros);
+$modelo->cancelarEvento($this->parametros);
 ?>
 <h1>Perfil: </h1>
 <p>
-    <img src="<?echo HOME_URI.'/views/_uploads/login.png';?>" width="100" height="100">
+    <img src="<?echo HOME_URI.'/views/_uploads/'.$socio['imagem'];?>" width="300" height="300">
 </p>
 <p>Nome: <? echo $socio['nome'];?></p>
 <p>User Name: <? echo $socio['login'];?></p>
@@ -61,6 +63,7 @@ $modelo->pay($this->parametros);
             <th>Titulo</th>
             <th>Evento</th>
             <th>Imagem</th>
+            <th>Cancelar</th>
         </tr>
         </thead>
         <tbody>
@@ -74,6 +77,9 @@ $modelo->pay($this->parametros);
                         <td><? echo $evento['evento'];?></td>
                         <td>
                             <img src="<?echo HOME_URI.'/views/_uploads/'.$evento['imagem'];?>" width="30px">
+                        </td>
+                        <td>
+                            <a href="<? echo $cancela_uri.$evento['idEvento']?>" >Cancelar:</a>
                         </td>
                     </tr>
             <? endforeach;?>

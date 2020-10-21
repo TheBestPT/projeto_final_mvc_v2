@@ -34,6 +34,11 @@
                 $this->form_msg = '<p class="form_error"> Internal error.</p>';
                 return;
             }
+            $imagem = $this->upload_imagem();
+            if (!$imagem) {
+                return;
+            }
+            $_POST['imagem'] = $imagem;
 
             $fetch_user = $db_check_user->fetch();
 
@@ -55,6 +60,8 @@
 
             $permissions = serialize($permissions);
 
+
+
             if($user_id){
                 $query = $this->db->update('socios','idSocio',$user_id,array(
                     'password' => $password,
@@ -75,11 +82,13 @@
                 }
 
             }else{
+                print_r($_POST);
                 $query = $this->db->insert('socios', array(
                     'login' => chk_array($this->form_data,'login'),
                     'password' => $password,
                     'email' => chk_array($this->form_data, 'email'),
                     'nome' => chk_array($this->form_data,'nome'),
+                    'imagem' => $imagem,
                     'socio_session_id' => md5(time()),
                     'socio_permissions' => $permissions,
                     'idAssoc' => chk_array($this->form_data,'idAssoc')
@@ -219,6 +228,27 @@
             }
         }
 
+        public function cancelarEvento($parametros = array()){
+
+            $idEvento = null;
+            $idSoc = null;
+            if(chk_array($parametros, 1) == 'can'){
+                if(is_numeric(chk_array($parametros, 2))){
+                    $idEvento = chk_array($parametros, 2);
+                    $idSoc = chk_array($parametros, 0);
+                }
+            }
+
+            if(!empty($idEvento) && !empty($idSoc)){
+                $idEvento = (int) $idEvento;
+                $idSoc = (int) $idSoc;
+                    $query = $this->db->query('DELETE FROM inscricoes WHERE idEvento = '.$idEvento.' AND idSocio = '.$idSoc);
+
+                header('location: '.HOME_URI.'/perfil/me/'.chk_array($parametros, 0));
+                return;
+            }
+        }
+
         public function listar_eventos($parametros = array()){
             $id = $where = $query_limit = null;
 
@@ -254,6 +284,45 @@
             return $query->fetchAll();
         }
 
+
+        public function upload_imagem(){
+            if(empty($_FILES['projeto_imagem']) && empty($_FILES['imagem'])){
+                echo "ola";
+                return;
+            }
+            $imagem = isset($_FILES['imagem']) ? $_FILES['imagem'] : $_FILES['projeto_imagem'];
+            $nome_imagem = strtolower($imagem['name']);
+            $ext_imagem = explode('.', $nome_imagem);
+            $ext_imagem = end($ext_imagem);
+            $nome_imagem = preg_replace('/[^a-zA-Z0-9]/', '', $nome_imagem);
+            $nome_imagem .= '_'.mt_rand().'.'.$ext_imagem;
+
+            $tipo_imagem = $imagem['type'];
+            $tmp_imagem = $imagem['tmp_name'];
+            $erro_imagem = $imagem['error'];
+            $tamanho_imagem = $imagem['size'];
+
+            $permitir_tipos = array(
+                'imagem/bmp',
+                'image/x-windows-bmp',
+                'image/gif',
+                'image/jpeg',
+                'image/pjpeg',
+                'image/png'
+            );
+
+            if(!in_array($tipo_imagem, $permitir_tipos)){
+                $this->form_msg = '<p class="error">deve enviar uma imagem nos formatos jpeg, gif, png</p>';
+                return;
+            }
+
+            if(!move_uploaded_file($tmp_imagem, UP_ABSPATH.'/'.$nome_imagem)){
+                $this->form_msg = '<p class="error">Erro ao enviar imagem</p>';
+                return;
+            }
+
+            return $nome_imagem;
+        }
 
 
     }

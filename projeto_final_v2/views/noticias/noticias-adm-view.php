@@ -1,6 +1,14 @@
 <?verifyPath();?>
 
 <?
+$asso = false;
+if(chk_array($this->parametros, 0)){
+    $id_assoc = chk_array($this->parametros, 0);
+    $asso = $modelo->notAction();
+}
+
+
+
 $adm_uri = HOME_URI.'/noticias/adm/';
 $edit_uri = $adm_uri.'edit/';
 $delete_uri = $adm_uri.'del/';
@@ -26,7 +34,7 @@ $delete_uri = $adm_uri.'del/';
             <tr>
                 <td>
                     Notícia: <br>
-                    <input type="text" name="noticia" value="<? echo htmlentities(chk_array($modelo->form_data, 'noticia'));?>" />
+                    <textarea name="noticia"><? echo htmlentities(chk_array($modelo->form_data, 'noticia'));?></textarea>
                 </td>
             </tr>
             <tr>
@@ -36,6 +44,7 @@ $delete_uri = $adm_uri.'del/';
                 </td>
             </tr>
             <tr>
+                <? if(!$asso): ?>
                 <td>
                     <label for="idAssoc">Escolhe a associação:</label>
                     <select name="idAssoc" id="idAssoc">
@@ -47,6 +56,9 @@ $delete_uri = $adm_uri.'del/';
                         <? endforeach; ?>
                     </select>
                 </td>
+                <? else: ?>
+                    <input type="hidden" name="idAssoc" value="<?echo $id_assoc;?>">
+                <?endif;?>
             </tr>
             <tr>
                 <td colspan="2">
@@ -61,7 +73,10 @@ $delete_uri = $adm_uri.'del/';
     </form>
 
     <?
-    $lista = $modelo->listar_items();
+    if (!$asso)
+        $lista = $modelo->listar_items();
+    else
+        $lista = $modelo->getNoticiasById($id_assoc);
     ?>
     <h1>Lista de Noticias</h1>
     <table id="tbl-projeto" class="list-table">
@@ -76,6 +91,8 @@ $delete_uri = $adm_uri.'del/';
         </tr>
         </thead>
         <tbody>
+
+
         <? foreach($lista as $noticias): ?>
             <tr>
                 <td><a href="<? echo HOME_URI.'/noticias/index/'.$noticias['idNoticia'];?>"><? echo $noticias['idNoticia'];?></a></td>

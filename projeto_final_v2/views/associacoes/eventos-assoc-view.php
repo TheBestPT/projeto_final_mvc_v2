@@ -8,9 +8,8 @@ else
 $adm_uri = HOME_URI.'/associacoes/eventosassoc/'.$id_assoc.'/';
 $edit_uri = $adm_uri.'edit/';
 $delete_uri = $adm_uri.'del/';
-$modelo->insere_items();
-$modelo->obter_items();
-$modelo->delete_items();
+$modelo->insere_evento();
+$modelo->delEvento();
 ?>
 <h1>Reutilizar um evento ja existente</h1>
 <form method="post" action="" enctype="multipart/form-data">
@@ -29,7 +28,7 @@ $modelo->delete_items();
     </tr>
     <tr>
         <td><input type="submit" value="Save"></td>
-        <input type="hidden" value="1" name="insere_even">
+        <input type="hidden" value="1" name="insere_evento">
         <input type="hidden" value="<? echo $id_assoc;?>" name="idAssoc">
     </tr>
 
@@ -61,7 +60,7 @@ $modelo->delete_items();
                     </p>
                 </td>
                 <td>
-                    <a href="<? echo $delete_uri.$evento['idEvento'].'/'.$evento['idAssoc'].'/ev';?>" >Delete:</a>
+                    <a href="<? echo $delete_uri.$evento['idEvento'].'/'.$evento['idAssoc'];?>" >Delete:</a>
                 </td>
             </tr>
         <? endforeach;?>
