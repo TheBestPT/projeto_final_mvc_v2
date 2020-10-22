@@ -70,6 +70,35 @@ class EventosAdmModel extends ItemsModel{
         }
         return false;
     }
+    public function insere_evento(){
+        if ('POST' != $_SERVER['REQUEST_METHOD'] || empty($_POST['insere_evento'])) {
+            return;
+        }
+        if (chk_array($this->parametros, 0) == 'edit') {
+            return;
+        }
+
+        if (is_numeric(chk_array($this->parametros, 1))) {
+            return;
+        }
+        unset($_POST['insere_evento']);
+        //print_r($_POST);
+        $query = $this->db->insert('associaeventos', $_POST);
+        //print_r($_POST);
+        $socios = $this->getSociosAssoc($_POST['idAssoc']);
+        //print_r($socios);
+        foreach ($socios as $item){
+            $evento = $_POST['idEvento'];
+            $query2 = $this->db->query('INSERT INTO inscricoes (idEvento, idSocio) VALUES ('.$evento.', '.$item['idSocio'].')');
+        }
+
+        if ($query && $query2) {
+            $this->form_msg = '<p class="success">Evento atualizada com sucesso!</p>';
+            return;
+        }
+        $this->form_msg = '<p class="error">Erro ao enviar dados!</p>';
+    }
+
 
     /*public function insere_evento(){
         if ('POST' != $_SERVER['REQUEST_METHOD'] || empty($_POST['insere_even'])) {
