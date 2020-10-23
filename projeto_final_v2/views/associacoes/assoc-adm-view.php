@@ -15,6 +15,10 @@ $admin_assoc_eventos = HOME_URI.'/associacoes/eventosassoc/';
     $modelo->insere_items();
     $modelo->obter_items();
     $modelo->delete_items();
+    //print_r($modelo->lista);
+    for($modelo->first(); !$modelo->isDone();$modelo->next()){
+        echo $modelo->currentItem()['nome'];
+    }
     ?>
     <form method="post" action="" enctype="multipart/form-data">
         <table class="form-table">

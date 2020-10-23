@@ -1,11 +1,13 @@
 <?php
-class AssociacoesAdmModel extends ItemsModel {
+class AssociacoesAdmModel extends ItemsModel implements IteratorInterface {
     public $table_name = 'associacao';
     public $idTable = 'idAssoc';
     public $urlName = 'associacoes';
     public $form = 'insere_assoc';
     public $haveImage = false;
     public $action = false;
+    public $contador;
+    public $lista = [];
     public function __construct($db = false, $controller = null)
     {
         $this->db = $db;
@@ -13,9 +15,11 @@ class AssociacoesAdmModel extends ItemsModel {
         $this->parametros = $this->controller->parametros;
         $this->userdata = $this->controller->userdata;
         parent::__construct($this->table_name, $this->idTable, $this->urlName, $this->form, $this->haveImage, $this->action, $this->db, $this->controller);
+        $this->lista = parent::listar_items();
+        $this->contador = 0;
     }
 
-    public function listarQuotas(){
+   /* public function listarQuotas(){
         $id = $where = $query_limit = null;
 
         if(is_numeric(chk_array($this->parametros, 0))){
@@ -33,7 +37,7 @@ class AssociacoesAdmModel extends ItemsModel {
 
         $query = $this->db->query('SELECT * FROM quotas ' . $where . ' ORDER BY idQuota DESC' . $query_limit, $id);
         return $query->fetchAll();
-    }
+    }*/
 
     public function obterQuotasById($id = 0, $str = ""){
         $query = "";
@@ -45,7 +49,7 @@ class AssociacoesAdmModel extends ItemsModel {
         return 'Sem quotas';
     }
 
-    public function inserir_quotas(){
+    /*public function inserir_quotas(){
         if ('POST' != $_SERVER['REQUEST_METHOD'] || empty($_POST['insere_quota'])) {
             return;
         }
@@ -66,9 +70,9 @@ class AssociacoesAdmModel extends ItemsModel {
             return;
         }
         $this->form_msg = '<p class="error">Erro ao enviar dados!</p>';
-    }
+    }*/
 
-    public function inserir_img(){
+    /*public function inserir_img(){
         if ('POST' != $_SERVER['REQUEST_METHOD'] || empty($_POST['insere_img'])) {
             return;
         }
@@ -95,10 +99,28 @@ class AssociacoesAdmModel extends ItemsModel {
             return;
         }
         $this->form_msg = '<p class="error">Erro ao enviar dados!</p>';
+    }*/
+
+
+    public function first(){
+        $this->contador = 0;
     }
 
+    public function next(){
+        $this->contador++;
+    }
 
+    public function isDone(){
+        return $this->contador == count($this->lista);
+    }
 
-
+    public function currentItem(){
+        if($this->isDone()){
+            $this->contador = count($this->lista)-1;
+        }else if($this->contador < 0){
+            $this->contador = 0;
+        }
+        return $this->lista[$this->contador];
+    }
 }
 ?>

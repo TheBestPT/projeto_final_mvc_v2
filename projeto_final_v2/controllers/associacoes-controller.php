@@ -25,7 +25,12 @@ class AssociacoesController extends MainController{
             echo 'Não tem permissoes para aceder a esta pagina';
             return;
         }
-        $modelo = $this->load_model('associacoes/associacoes-adm-model');
+        //$modelo = $this->load_model('associacoes/associacoes-adm-model');
+        //$modelo = $this->load_model('classes/class-FabricaModels');
+        //$modelo = $modelo->model('assoc_adm');
+        $fabrica = new FabricaModels($this->db, $this);
+        $fabrica->model('assoc_adm');
+        $modelo = $fabrica->chamarFabricas();
         require ABSPATH . '/views/_includes/header.php';
         require ABSPATH . '/views/_includes/menu.php';
         require ABSPATH . '/views/associacoes/assoc-adm-view.php';
@@ -44,7 +49,10 @@ class AssociacoesController extends MainController{
             echo 'Não tem permissoes para aceder a esta pagina';
             return;
         }
-        $modelo = $this->load_model('associacoes/socios-adm-model');
+        //$modelo = $this->load_model('associacoes/socios-adm-model');
+        $fabrica = new FabricaModels($this->db, $this);
+        $fabrica->model('sepecify_adm');
+        $modelo = $fabrica->chamarFabricas();
         require ABSPATH . '/views/_includes/header.php';
         require ABSPATH . '/views/_includes/menu.php';
         require ABSPATH . '/views/associacoes/assoc_adm_specified_view.php';
