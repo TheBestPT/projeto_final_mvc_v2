@@ -44,6 +44,7 @@ $modelo->delete_items();
 <div class="wrap">
     <?
     $lista = $modelo->getSociosAssoc($id_assoc);
+    //print_r($modelo->lista);
     ?>
     <h1>Lista de socios da associação: <? echo $modelo->get_assoc_by_id($id_assoc); ?></h1>
     <table id="tbl-projeto" class="list-table">
@@ -55,19 +56,25 @@ $modelo->delete_items();
         </tr>
         </thead>
         <tbody>
-        <? foreach($lista as $assoc): ?>
-            <tr>
-                <td><? echo $assoc['nome'];?></td>
-                <td><? echo $assoc['email'];?></td>
-                <td>
-                    <a href="<? echo $edit_uri.$assoc['idSocio'];?>" >Editar:</a>
-                    &nbsp;&nbsp;
-                    <a href="<? echo $delete_uri.$assoc['idSocio'];?>" >Delete:</a>
-                    &nbsp;&nbsp;
-                    <a href="<? echo $admin_quota_uri.$assoc['idSocio'];?>" >Quotas:</a>
-                </td>
-            </tr>
-        <? endforeach;?>
+        <? foreach($lista as $assoc):
+        //$count = 0;
+        //for($modelo->first(); !$modelo->isDone();$modelo->next()):?>
+            <?//echo $count++;?>
+            <?//if($modelo->currentItem()['idAssoc'] == $id_assoc):?>
+                <tr>
+                    <td><? echo $assoc['nome'];?></td>
+                    <td><? echo $assoc['email'];?></td>
+                    <td>
+                        <a href="<? echo $edit_uri.$assoc['idSocio'];?>" >Editar:</a>
+                        &nbsp;&nbsp;
+                        <a href="<? echo $delete_uri.$assoc['idSocio'];?>" >Delete:</a>
+                        &nbsp;&nbsp;
+                        <a href="<? echo $admin_quota_uri.$assoc['idSocio'];?>" >Quotas:</a>
+                    </td>
+                </tr>
+            <?//endif;?>
+        <? endforeach;
+        //endfor;?>
         </tbody>
     </table>
 </div>

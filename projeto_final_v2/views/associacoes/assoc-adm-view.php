@@ -16,9 +16,13 @@ $admin_assoc_eventos = HOME_URI.'/associacoes/eventosassoc/';
     $modelo->obter_items();
     $modelo->delete_items();
     //print_r($modelo->lista);
-    for($modelo->first(); !$modelo->isDone();$modelo->next()){
+    /*for($modelo->first(); !$modelo->isDone();$modelo->next()){
         echo $modelo->currentItem()['nome'];
-    }
+    }*/
+    $l = new IteratorInterno($modelo->lista);
+    //print_r($modelo->lista);
+    //$test = $l->loop();
+    //print_r($test);
     ?>
     <form method="post" action="" enctype="multipart/form-data">
         <table class="form-table">
@@ -62,7 +66,9 @@ $admin_assoc_eventos = HOME_URI.'/associacoes/eventosassoc/';
 
 
     <?
-    $lista = $modelo->listar_items();
+    //echo $l->trazItems('nome');
+    //$lista = $modelo->listar_items();
+    //echo $l->loop();
     ?>
     <h1>Lista de Associações</h1>
     <table id="tbl-projeto" class="list-table">
@@ -77,26 +83,28 @@ $admin_assoc_eventos = HOME_URI.'/associacoes/eventosassoc/';
         </tr>
         </thead>
         <tbody>
-        <? foreach($lista as $assoc): ?>
+        <? //foreach($lista as $assoc):
+        for($modelo->first(); !$modelo->isDone();$modelo->next()):?>
             <tr>
-                <td><a href="<? echo HOME_URI.'/associacoes/index/'.$assoc['idAssoc'];?>"><? echo $assoc['idAssoc'];?></a></td>
-                <td><? echo $assoc['nome'];?></td>
-                <td><? echo $assoc['telefone'];?></td>
-                <td><? echo $assoc['morada'];?></td>
-                <td><? echo $assoc['numContribuinte'];?></td>
+                <td><a href="<? echo HOME_URI.'/associacoes/index/'.$modelo->currentItem()['idAssoc'];?>"><? echo $modelo->currentItem()['idAssoc'];?></a></td>
+                <td><? echo $modelo->currentItem()['nome'];?></td>
+                <td><? echo $modelo->currentItem()['telefone'];?></td>
+                <td><? echo $modelo->currentItem()['morada'];?></td>
+                <td><? echo $modelo->currentItem()['numContribuinte'];?></td>
                 <td>
-                    <a href="<? echo $edit_uri.$assoc['idAssoc'];?>" >Editar:</a>
+                    <a href="<? echo $edit_uri.$modelo->currentItem()['idAssoc'];?>" >Editar:</a>
                     &nbsp;&nbsp;
-                    <a href="<? echo $delete_uri.$assoc['idAssoc'];?>" >Delete:</a>
+                    <a href="<? echo $delete_uri.$modelo->currentItem()['idAssoc'];?>" >Delete:</a>
                     &nbsp;&nbsp;
-                    <a href="<? echo $admin_assoc_uri.$assoc['idAssoc'];?>" >Administrar:</a>
+                    <a href="<? echo $admin_assoc_uri.$modelo->currentItem()['idAssoc'];?>" >Administrar:</a>
                     &nbsp;&nbsp;
-                    <a href="<? echo $admin_images_uri.$assoc['idAssoc'];?>" >Adicionar imagem:</a>
+                    <a href="<? echo $admin_images_uri.$modelo->currentItem()['idAssoc'];?>" >Adicionar imagem:</a>
                     &nbsp;&nbsp;
-                    <a href="<? echo $admin_assoc_eventos.$assoc['idAssoc'];?>" >Reutilizar eventos:</a>
+                    <a href="<? echo $admin_assoc_eventos.$modelo->currentItem()['idAssoc'];?>" >Reutilizar eventos:</a>
                 </td>
             </tr>
-        <? endforeach;?>
+        <? //endforeach;
+        endfor;?>
         </tbody>
     </table>
 </div>

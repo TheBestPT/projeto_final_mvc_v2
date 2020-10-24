@@ -44,16 +44,21 @@ $modelo->delEvento();
             <th>ID</th>
             <th>Titulo</th>
             <th>Evento</th>
+            <th>Data Comeco</th>
+            <th>Data Termino</th>
             <th>Imagem</th>
             <th>Edicao</th>
         </tr>
         </thead>
         <tbody>
-        <? foreach($lista as $evento): ?>
+        <? foreach($lista as $evento):
+        //for($modelo->first(); !$modelo->isDone();$modelo->next()):?>
             <tr>
                 <td><a href="<? echo HOME_URI.'/evento/index/'.$evento['idEvento'];?>"><? echo $evento['idEvento'];?></a></td>
                 <td><? echo $evento['titulo'];?></td>
                 <td><? echo $evento['evento'];?></td>
+                <td><? echo $evento['dataComeco'];?></td>
+                <td><? echo $evento['dataTermino'];?></td>
                 <td>
                     <p>
                         <img src="<?echo HOME_URI.'/views/_uploads/'.$evento['imagem'];?>" width="30px">
@@ -63,7 +68,8 @@ $modelo->delEvento();
                     <a href="<? echo $delete_uri.$evento['idEvento'].'/'.$evento['idAssoc'];?>" >Delete:</a>
                 </td>
             </tr>
-        <? endforeach;?>
+        <? endforeach;
+        //endfor;?>
         </tbody>
     </table>
 </div>

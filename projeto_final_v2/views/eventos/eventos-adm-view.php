@@ -30,6 +30,18 @@ $delete_uri = $adm_uri.'del/';
             </tr>
             <tr>
                 <td>
+                    Data Comeco: <br>
+                    <input type="text" name="dataComeco" value="<? echo htmlentities(chk_array($modelo->form_data, 'dataComeco'));?>" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Data Termino: <br>
+                    <input type="text" name="dataTermino" value="<? echo htmlentities(chk_array($modelo->form_data, 'dataTermino'));?>" />
+                </td>
+            </tr>
+            <tr>
+                <td>
                     Imagem: <br>
                     <input type="file" name="imagem" value=""/>
                 </td>
@@ -70,6 +82,8 @@ $delete_uri = $adm_uri.'del/';
             <th>Titulo</th>
             <th>Evento</th>
             <th>Imagem</th>
+            <th>Data Comeco</th>
+            <th>Data Termino</th>
             <th>Edicao</th>
         </tr>
         </thead>
@@ -84,6 +98,8 @@ $delete_uri = $adm_uri.'del/';
                         <img src="<?echo HOME_URI.'/views/_uploads/'.$evento['imagem'];?>" width="30px">
                     </p>
                 </td>
+                <td><? echo $evento['dataComeco'];?></td>
+                <td><? echo $evento['dataTermino'];?></td>
                 <td>
                     <a href="<? echo $edit_uri.$evento['idEvento'];?>" >Editar:</a>
                     &nbsp;&nbsp;

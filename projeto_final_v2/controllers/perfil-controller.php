@@ -17,9 +17,9 @@ class PerfilController extends MainController{
             echo 'Não tem permissoes para aceder a esta pagina';
             return;
         }
-
-
-        $modelo = $this->load_model('socio-register/socio-register-model');
+        //$modelo = $this->load_model('socio-register/socio-register-model');
+        $this->factory->model('user');
+        $modelo = $this->factory->chamarFabricas();
         require ABSPATH . '/views/_includes/header.php';
         require ABSPATH . '/views/_includes/menu.php';
         require ABSPATH . '/views/perfil/perfil-soc-view.php';

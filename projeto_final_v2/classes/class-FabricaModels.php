@@ -14,8 +14,7 @@ class FabricaModels implements FactoryMethod{
         $this->userdata = $this->controller->userdata;
     }
 
-    public function chamarFabricas()
-    {
+    public function chamarFabricas(){
         $model = null;
         switch ($this->model){
             case 'assoc_adm':
@@ -23,6 +22,24 @@ class FabricaModels implements FactoryMethod{
                 break;
             case 'sepecify_adm':
                 $model = $this->load_model('associacoes/socios-adm-model');
+                break;
+            case 'quotas':
+                $model = $this->load_model('associacoes/quotas-adm-model');
+                break;
+            case 'img':
+                $model = $this->load_model('associacoes/imagens-adm-model');
+                break;
+            case 'eventos_assoc':
+                $model = $this->load_model('associacoes/eventos-assoc-model');
+                break;
+            case 'eventos':
+                $model = $this->load_model('eventos/eventos-adm-model');
+                break;
+            case 'noticias':
+                $model = $this->load_model('noticias/noticias-adm-model');
+                break;
+            case 'user':
+                $model = $this->load_model('socio-register/socio-register-model');
                 break;
         }
         return $model;

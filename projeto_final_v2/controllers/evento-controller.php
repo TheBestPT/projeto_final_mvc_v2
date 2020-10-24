@@ -4,8 +4,9 @@ class EventoController extends MainController{
     public $permissions_required = 'gerir-eventos';
     public function index(){
         $this->title = "Evento";
-
-        $modelo = $this->load_model('eventos/eventos-adm-model');
+        //$modelo = $this->load_model('eventos/eventos-adm-model');
+        $this->factory->model('eventos');
+        $modelo = $this->factory->chamarFabricas();
         require ABSPATH . '/views/_includes/header.php';
         require ABSPATH . '/views/_includes/menu.php';
         require ABSPATH . '/views/eventos/eventos-view.php';
@@ -13,6 +14,7 @@ class EventoController extends MainController{
     }
 
     public function adm(){
+        $this->title = "Eventos ADM";
         if(!$this->logged_in){
             $this->logout();
             $this->goto_login();
@@ -22,8 +24,9 @@ class EventoController extends MainController{
             echo 'Não tem permissoes para aceder a esta pagina';
             return;
         }
-        $this->title = "Eventos ADM";
-        $modelo = $this->load_model('eventos/eventos-adm-model');
+        //$modelo = $this->load_model('eventos/eventos-adm-model');
+        $this->factory->model('eventos');
+        $modelo = $this->factory->chamarFabricas();
         require ABSPATH . '/views/_includes/header.php';
         require ABSPATH . '/views/_includes/menu.php';
         require ABSPATH . '/views/eventos/eventos-adm-view.php';

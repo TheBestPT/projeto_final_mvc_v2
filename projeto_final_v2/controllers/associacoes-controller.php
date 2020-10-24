@@ -6,7 +6,9 @@ class AssociacoesController extends MainController{
         $this->title = 'Associacoes';
         $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : array();
 
-        $modelo = $this->load_model('associacoes/associacoes-adm-model');
+        //$modelo = $this->load_model('associacoes/associacoes-adm-model');
+        $this->factory->model('assoc_adm');
+        $modelo = $this->factory->chamarFabricas();
         require ABSPATH . '/views/_includes/header.php';
         require ABSPATH . '/views/_includes/menu.php';
         require ABSPATH . '/views/associacoes/assoc_view.php';
@@ -28,9 +30,9 @@ class AssociacoesController extends MainController{
         //$modelo = $this->load_model('associacoes/associacoes-adm-model');
         //$modelo = $this->load_model('classes/class-FabricaModels');
         //$modelo = $modelo->model('assoc_adm');
-        $fabrica = new FabricaModels($this->db, $this);
-        $fabrica->model('assoc_adm');
-        $modelo = $fabrica->chamarFabricas();
+        //$fabrica = new FabricaModels($this->db, $this);
+        $this->factory->model('assoc_adm');
+        $modelo = $this->factory->chamarFabricas();
         require ABSPATH . '/views/_includes/header.php';
         require ABSPATH . '/views/_includes/menu.php';
         require ABSPATH . '/views/associacoes/assoc-adm-view.php';
@@ -49,10 +51,8 @@ class AssociacoesController extends MainController{
             echo 'Não tem permissoes para aceder a esta pagina';
             return;
         }
-        //$modelo = $this->load_model('associacoes/socios-adm-model');
-        $fabrica = new FabricaModels($this->db, $this);
-        $fabrica->model('sepecify_adm');
-        $modelo = $fabrica->chamarFabricas();
+        $this->factory->model('sepecify_adm');
+        $modelo = $this->factory->chamarFabricas();
         require ABSPATH . '/views/_includes/header.php';
         require ABSPATH . '/views/_includes/menu.php';
         require ABSPATH . '/views/associacoes/assoc_adm_specified_view.php';
@@ -71,7 +71,9 @@ class AssociacoesController extends MainController{
             echo 'Não tem permissoes para aceder a esta pagina';
             return;
         }
-        $modelo = $this->load_model('associacoes/quotas-adm-model');
+        //$modelo = $this->load_model('associacoes/quotas-adm-model');
+        $this->factory->model('quotas');
+        $modelo = $this->factory->chamarFabricas();
         require ABSPATH . '/views/_includes/header.php';
         require ABSPATH . '/views/_includes/menu.php';
         require ABSPATH . '/views/associacoes/assoc-quotas-view.php';
@@ -90,7 +92,9 @@ class AssociacoesController extends MainController{
             echo 'Não tem permissoes para aceder a esta pagina';
             return;
         }
-        $modelo = $this->load_model('associacoes/imagens-adm-model');
+        //$modelo = $this->load_model('associacoes/imagens-adm-model');
+        $this->factory->model('img');
+        $modelo = $this->factory->chamarFabricas();
         require ABSPATH . '/views/_includes/header.php';
         require ABSPATH . '/views/_includes/menu.php';
         require ABSPATH . '/views/associacoes/image_adm_view.php';
@@ -109,7 +113,9 @@ class AssociacoesController extends MainController{
             echo 'Não tem permissoes para aceder a esta pagina';
             return;
         }
-        $modelo = $this->load_model('associacoes/eventos-assoc-model');
+        //$modelo = $this->load_model('associacoes/eventos-assoc-model');
+        $this->factory->model('eventos_assoc');
+        $modelo = $this->factory->chamarFabricas();
         require ABSPATH . '/views/_includes/header.php';
         require ABSPATH . '/views/_includes/menu.php';
         require ABSPATH . '/views/associacoes/eventos-assoc-view.php';

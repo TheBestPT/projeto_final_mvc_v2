@@ -8,6 +8,7 @@ class MainController extends UserLogin {
     public $login_required = false;
     public $permission_required = 'any';
     public $parametros = array();
+    public $factory;
 
     public function __construct($parametros = array()) {
         // Instancia do DB
@@ -18,6 +19,8 @@ class MainController extends UserLogin {
         $this->parametros = $parametros;
         // Verifica o login
         $this->check_userlogin();
+
+        $this->factory = new FabricaModels($this->db, $this);
     }
 // __construct
     public function load_model($model_name = false) {

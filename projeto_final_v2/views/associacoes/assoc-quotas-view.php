@@ -48,7 +48,8 @@ $modelo->delete_items();
 
 <div class="wrap">
     <?
-    $lista = $modelo->getQuotas($id_soc);
+    //$lista = $modelo->getQuotas($id_soc);
+
     ?>
     <h1>Lista de quotas da associação: <? echo $modelo->getSocName($id_soc) ?></h1>
     <table id="tbl-projeto" class="list-table">
@@ -62,19 +63,24 @@ $modelo->delete_items();
         </tr>
         </thead>
         <tbody>
-        <? foreach($lista as $quotas): ?>
-            <tr>
-                <td><? echo $quotas['preco'];?></td>
-                <td><? echo $quotas['dataComeco'];?></td>
-                <td><? echo $quotas['dataTermino'];?></td>
-                <td><? if($quotas['pago'] == 0) echo "Não pago"; else echo "Pago";?></td>
-                <td>
-                    <a href="<? echo $edit_uri.$quotas['idQuota'];?>" >Editar:</a>
-                    &nbsp;&nbsp;
-                    <a href="<? echo $delete_uri.$quotas['idQuota'];?>" >Delete:</a>
-                </td>
-            </tr>
-        <? endforeach;?>
+        <? //foreach($lista as $quotas):
+
+        for($modelo->first(); !$modelo->isDone();$modelo->next()): ?>
+            <?if($modelo->currentItem()['idSocio'] == $id_soc):?>
+                <tr>
+                    <td><? echo $modelo->currentItem()['preco'];?></td>
+                    <td><? echo $modelo->currentItem()['dataComeco'];?></td>
+                    <td><? echo $modelo->currentItem()['dataTermino'];?></td>
+                    <td><? if($modelo->currentItem()['pago'] == 0) echo "Não pago"; else echo "Pago";?></td>
+                    <td>
+                        <a href="<? echo $edit_uri.$modelo->currentItem()['idQuota'];?>" >Editar:</a>
+                        &nbsp;&nbsp;
+                        <a href="<? echo $delete_uri.$modelo->currentItem()['idQuota'];?>" >Delete:</a>
+                    </td>
+                </tr>
+            <?endif;?>
+        <? //endforeach;
+        endfor;?>
         </tbody>
     </table>
 </div>
