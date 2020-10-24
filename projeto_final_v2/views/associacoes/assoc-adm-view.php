@@ -87,10 +87,10 @@ $admin_assoc_eventos = HOME_URI.'/associacoes/eventosassoc/';
         for($modelo->first(); !$modelo->isDone();$modelo->next()):?>
             <tr>
                 <td><a href="<? echo HOME_URI.'/associacoes/index/'.$modelo->currentItem()['idAssoc'];?>"><? echo $modelo->currentItem()['idAssoc'];?></a></td>
-                <td><? echo $modelo->currentItem()['nome'];?></td>
-                <td><? echo $modelo->currentItem()['telefone'];?></td>
-                <td><? echo $modelo->currentItem()['morada'];?></td>
-                <td><? echo $modelo->currentItem()['numContribuinte'];?></td>
+                <td><? echo $modelo->currentItem()['nome']; ?></td>
+                <td><? echo $modelo->currentItem()['telefone']; ?></td>
+                <td><? echo $modelo->currentItem()['morada']; ?></td>
+                <td><? echo $modelo->currentItem()['numContribuinte']; ?></td>
                 <td>
                     <a href="<? echo $edit_uri.$modelo->currentItem()['idAssoc'];?>" >Editar:</a>
                     &nbsp;&nbsp;

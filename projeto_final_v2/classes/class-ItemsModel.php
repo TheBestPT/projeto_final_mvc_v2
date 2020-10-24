@@ -29,13 +29,6 @@ class ItemsModel extends MainModel{
     }
 
     public function obter_items() {
-        //print_r($this->parametros);
-        /*if(chk_array($this->parametros, 3) != 'soc' && chk_array($this->parametros, 3) != 'qo'){
-            $this->updateItem();
-        }elseif(chk_array($this->parametros, 3) == 'soc')
-            $this->updateItemUrl('socios', 'idSocio', 'insere_soc', chk_array($this->parametros, 2));
-        elseif(chk_array($this->parametros, 3) == 'qo')
-            $this->updateItemUrl('quotas', 'idQuota', 'insere_quota', chk_array($this->parametros, 2));*/
         $param = ($this->action) ? 1 : 0;
         if (chk_array($this->parametros, $param) != 'edit')
             return;
@@ -173,26 +166,19 @@ class ItemsModel extends MainModel{
 
         if ($query) {
             $this->form_msg = '<p class="success">Item atualizado com sucesso!</p>';
+            header("Refresh:0");
             return;
         }
         $this->form_msg = '<p class="error">Erro ao enviar dados!</p>';
     }
 
     public function delete_items($parametros = array()){
-        /*if(chk_array($this->parametros, 3) != 'soc' && chk_array($this->parametros, 3) != 'qo' && chk_array($this->parametros, 3) != 'img' && chk_array($this->parametros, 4) != 'ev')
-            $this->delete_items_not_sepecified();
-        elseif(chk_array($this->parametros, 3) == 'soc')
-            $this->delete_items_url('socios', 'idSocio', chk_array($this->parametros, 3));
-        elseif(chk_array($this->parametros, 3) == 'qo')
-            $this->delete_items_url('quotas', 'idQuota', chk_array($this->parametros, 3));
-        elseif(chk_array($this->parametros , 3) == 'img')
-            $this->delete_items_url('imagem', 'idImagem', chk_array($this->parametros, 3));
-        else
-            $this->delete_items_url('associaeventos', 'idEvento', chk_array($this->parametros, 4));*/
         $param = ($this->action) ? 1 : 0;
         //echo $param;
-        if(chk_array($this->parametros, $param) != 'del')
+        if(chk_array($this->parametros, $param) != 'del'){
             return;
+        }
+
 
         if(!is_numeric(chk_array($this->parametros, ++$param)))
             return;
@@ -203,63 +189,13 @@ class ItemsModel extends MainModel{
             $mensagem .='<a href="'. HOME_URI .'/'.$this->urlName.'/adm">Não</a></p>';
             return $mensagem;
         }*/
-
+        echo $param;
         $projeto_id = (int) chk_array($this->parametros, $param);
-        //echo '    '.$param;
-        print_r($this->parametros);
         $query = $this->db->delete($this->table_name, $this->idTable, $projeto_id);
+        //header("Refresh:0");
         //redireciona para a pagina de administrcao de projetos
-        /*echo '<meta http-equiv="Refresh" content="0; url = '.HOME_URI.'/'.$this->urlName.'/adm">';
-        echo '<script type="text/javascript">window.location.href = "'.HOME_URI.'/'.$this->urlName.'/adm/" </script>';*/
-    }
-
-    public function delete_items_not_sepecified(){
-        if(chk_array($this->parametros, 0) != 'del')
-            return;
-
-        if(!is_numeric(chk_array($this->parametros, 1)))
-            return;
-
-        if(!is_numeric(chk_array($this->parametros, 2)) != 'confirma'){
-            $mensagem='<p class="alert">Tem Mesmo certeza que quer apagar o  projeto</p>';
-            $mensagem.='<p><a href="'.$_SERVER['REQUEST_URI'] .'/confirma/">Sim</a> |';
-            $mensagem .='<a href="'. HOME_URI .'/'.$this->url_name().'/adm">Não</a></p>';
-            return $mensagem;
-        }
-
-        $projeto_id = (int) chk_array($this->parametros, 1);
-        $query = $this->db->delete($this->table_name(), $this->id_table(), $projeto_id);
-        //redireciona para a pagina de administrcao de projetos
-        echo '<meta http-equiv="Refresh" content="0; url = '.HOME_URI.'/'.$this->url_name().'/adm">';
-        echo '<script type="text/javascript">window.location.href = "'.HOME_URI.'/'.$this->url_name().'/adm/" </script>';
-    }
-
-    public function delete_items_url($tableName = "", $idTable = "", $whatDelete = ""){
-        if(chk_array($this->parametros, 1) != 'del')
-            return;
-
-        if(!is_numeric(chk_array($this->parametros, 2)))
-            return;
-        $projeto_id = (int) chk_array($this->parametros, 2);
-        switch ($whatDelete){
-            case 'soc':
-                $query = $this->db->delete($tableName, $idTable, $projeto_id);
-                header('location: http://localhost/projeto_final/associacoes/admassoc/'.chk_array($this->parametros, 0));
-                break;
-            case 'qo':
-                $query = $this->db->delete($tableName, $idTable, $projeto_id);
-                header('location: http://localhost/projeto_final/associacoes/assocquotas/'.chk_array($this->parametros, 0));
-                break;
-            case 'img':
-                $query = $this->db->delete($tableName, $idTable, $projeto_id);
-                header('location: http://localhost/projeto_final/associacoes/admimages/'.chk_array($this->parametros, 0));
-                break;
-            case 'ev':
-                $query = $this->db->query('DELETE FROM '.$tableName.' WHERE '.$idTable.' = '.chk_array($this->parametros, 2).' AND idAssoc = '.chk_array($this->parametros, 3));
-                $query2 = $this->db->query('DELETE FROM inscricoes WHERE '.$idTable.' = '.chk_array($this->parametros, 2));
-                header('location: http://localhost/projeto_final/associacoes/eventosassoc/'.chk_array($this->parametros, 0));
-                break;
-        }
+        echo '<meta http-equiv="Refresh" content="0; url = '.HOME_URI.'/'.$this->urlName.'/adm">';
+        echo '<script type="text/javascript">window.location.href = "'.HOME_URI.'/'.$this->urlName.'/adm/" </script>';
     }
 
     public function getAll($table_name = ''){

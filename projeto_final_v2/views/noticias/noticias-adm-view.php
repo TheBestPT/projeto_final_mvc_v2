@@ -2,7 +2,7 @@
 
 <?
 $asso = false;
-if(chk_array($this->parametros, 0)){
+if(is_numeric(chk_array($this->parametros, 0))){
     $id_assoc = chk_array($this->parametros, 0);
     $asso = $modelo->notAction();
     $adm_uri = HOME_URI.'/noticias/adm/'.$id_assoc.'/';
