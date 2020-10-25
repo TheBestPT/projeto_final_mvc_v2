@@ -10,9 +10,10 @@ $edit_uri = $adm_uri.'edit/';
 $delete_uri = $adm_uri.'del/';
 echo $modelo->form_confirma;
 $admin_quota_uri = HOME_URI.'/associacoes/assocquotas/';
+$uri_refresh = '/associacoes/admassoc/'.$id_assoc.'/';
 $modelo->insere_items();
-$modelo->obter_items();
-$modelo->delete_items();
+$modelo->obter_items($uri_refresh);
+$modelo->delete_items($uri_refresh);
 ?>
 <h1>Editar Socios:</h1>
 <form method="post" action="" enctype="multipart/form-data">
@@ -56,11 +57,7 @@ $modelo->delete_items();
         </tr>
         </thead>
         <tbody>
-        <? foreach($lista as $assoc):
-        //$count = 0;
-        //for($modelo->first(); !$modelo->isDone();$modelo->next()):?>
-            <?//echo $count++;?>
-            <?//if($modelo->currentItem()['idAssoc'] == $id_assoc):?>
+        <? foreach($lista as $assoc):?>
                 <tr>
                     <td><? echo $assoc['nome'];?></td>
                     <td><? echo $assoc['email'];?></td>
@@ -72,9 +69,7 @@ $modelo->delete_items();
                         <a href="<? echo $admin_quota_uri.$assoc['idSocio'];?>" >Quotas:</a>
                     </td>
                 </tr>
-            <?//endif;?>
-        <? endforeach;
-        //endfor;?>
+        <? endforeach;?>
         </tbody>
     </table>
 </div>

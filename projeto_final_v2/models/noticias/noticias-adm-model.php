@@ -1,11 +1,13 @@
 <?php
-class NoticiasAdmModel extends ItemsModel {
+class NoticiasAdmModel extends ItemsModel implements IteratorInterface {
     public $table_name = 'noticias';
     public $idTable = 'idNoticia';
     public $urlName = 'noticias';
     public $form = 'insere_noticia';
     public $haveImage = true;
     public $action = false;
+    public $lista = [];
+    public $contador;
     public function __construct($db = false, $controller = null)
     {
         $this->db = $db;
@@ -13,6 +15,8 @@ class NoticiasAdmModel extends ItemsModel {
         $this->parametros = $this->controller->parametros;
         $this->userdata = $this->controller->userdata;
         parent::__construct($this->table_name, $this->idTable, $this->urlName, $this->form, $this->haveImage, $this->action, $this->db, $this->controller);
+        $this->lista = $this->listar_items();
+        $this->contador = 0;
     }
 
     public function getNoticiasById($id = 0){
@@ -21,6 +25,27 @@ class NoticiasAdmModel extends ItemsModel {
             return $query->fetchAll();
         }
         return [];
+    }
+
+    public function first(){
+        $this->contador = 0;
+    }
+
+    public function next(){
+        $this->contador++;
+    }
+
+    public function isDone(){
+        return $this->contador == count($this->lista);
+    }
+
+    public function currentItem(){
+        if($this->isDone()){
+            $this->contador = count($this->lista)-1;
+        }else if($this->contador < 0){
+            $this->contador = 0;
+        }
+        return $this->lista[$this->contador];
     }
 }
 ?>

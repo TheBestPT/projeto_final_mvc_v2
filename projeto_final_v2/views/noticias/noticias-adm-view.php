@@ -2,10 +2,12 @@
 
 <?
 $asso = false;
+$uri_refresh = '';
 if(is_numeric(chk_array($this->parametros, 0))){
     $id_assoc = chk_array($this->parametros, 0);
     $asso = $modelo->notAction();
     $adm_uri = HOME_URI.'/noticias/adm/'.$id_assoc.'/';
+    $uri_refresh = '/noticias/adm/'.$id_assoc.'/';
 }else{
     $adm_uri = HOME_URI.'/noticias/adm/';
 }
@@ -20,8 +22,8 @@ $delete_uri = $adm_uri.'del/';
 <div class="wrap">
     <?
     $modelo->insere_items();
-    $modelo->obter_items();
-    $modelo->delete_items();
+    $modelo->obter_items($uri_refresh);
+    $modelo->delete_items($uri_refresh);
     ?>
     <h1>Criar e editar noticias:</h1>
     <form method="post" action="" enctype="multipart/form-data">
@@ -93,25 +95,24 @@ $delete_uri = $adm_uri.'del/';
         </thead>
         <tbody>
 
-
-        <? foreach($lista as $noticias): ?>
+        <? for($modelo->first(); !$modelo->isDone();$modelo->next()): ?>
             <tr>
-                <td><a href="<? echo HOME_URI.'/noticias/index/'.$noticias['idNoticia'];?>"><? echo $noticias['idNoticia'];?></a></td>
-                <td><? echo $noticias['titulo'];?></td>
-                <td><? echo $noticias['noticia'];?></td>
+                <td><a href="<? echo HOME_URI.'/noticias/index/'.$modelo->currentItem()['idNoticia'];?>"><? echo $modelo->currentItem()['idNoticia'];?></a></td>
+                <td><? echo $modelo->currentItem()['titulo'];?></td>
+                <td><? echo $modelo->currentItem()['noticia'];?></td>
                 <td>
                     <p>
-                        <img src="<?echo HOME_URI.'/views/_uploads/'.$noticias['imagem'];?>" width="30px">
+                        <img src="<?echo HOME_URI.'/views/_uploads/'.$modelo->currentItem()['imagem'];?>" width="30px">
                     </p>
                 </td>
-                <td><?php echo $modelo->get_assoc_by_id($noticias['idAssoc']);?></td>
+                <td><?php echo $modelo->get_assoc_by_id($modelo->currentItem()['idAssoc']);?></td>
                 <td>
-                    <a href="<? echo $edit_uri.$noticias['idNoticia'];?>" >Editar:</a>
+                    <a href="<? echo $edit_uri.$modelo->currentItem()['idNoticia'];?>" >Editar:</a>
                     &nbsp;&nbsp;
-                    <a href="<? echo $delete_uri.$noticias['idNoticia'];?>" >Delete:</a>
+                    <a href="<? echo $delete_uri.$modelo->currentItem()['idNoticia'];?>" >Delete:</a>
                 </td>
             </tr>
-        <? endforeach;?>
+        <? endfor;?>
         </tbody>
     </table>
 </div>

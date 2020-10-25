@@ -6,11 +6,12 @@ if(chk_array($this->parametros, 0))
 else
     header('location: '.HOME_URI.'associacoes/adm');
 $adm_uri = HOME_URI.'/associacoes/assocquotas/'.$id_soc.'/';
+$uri_refresh = '/associacoes/assocquotas/'.$id_soc.'/';
 $edit_uri = $adm_uri.'edit/';
 $delete_uri = $adm_uri.'del/';
 $modelo->insere_items();
-$modelo->obter_items();
-$modelo->delete_items();
+$modelo->obter_items($uri_refresh);
+$modelo->delete_items($uri_refresh);
 ?>
 <h1>Criar e editar quotas:</h1>
 <form method="post" action="" enctype="multipart/form-data">
@@ -48,7 +49,7 @@ $modelo->delete_items();
 
 <div class="wrap">
     <?
-    //$lista = $modelo->getQuotas($id_soc);
+    $lista = $modelo->getQuotas($id_soc);
 
     ?>
     <h1>Lista de quotas da associação: <? echo $modelo->getSocName($id_soc) ?></h1>
@@ -63,24 +64,19 @@ $modelo->delete_items();
         </tr>
         </thead>
         <tbody>
-        <? //foreach($lista as $quotas):
-
-        for($modelo->first(); !$modelo->isDone();$modelo->next()): ?>
-            <?if($modelo->currentItem()['idSocio'] == $id_soc):?>
+        <? foreach($lista as $quotas):?>
                 <tr>
-                    <td><? echo $modelo->currentItem()['preco'];?></td>
-                    <td><? echo $modelo->currentItem()['dataComeco'];?></td>
-                    <td><? echo $modelo->currentItem()['dataTermino'];?></td>
-                    <td><? if($modelo->currentItem()['pago'] == 0) echo "Não pago"; else echo "Pago";?></td>
+                    <td><? echo $quotas['preco'];?></td>
+                    <td><? echo $quotas['dataComeco'];?></td>
+                    <td><? echo $quotas['dataTermino'];?></td>
+                    <td><? if($quotas['pago'] == 0) echo "Não pago"; else echo "Pago";?></td>
                     <td>
-                        <a href="<? echo $edit_uri.$modelo->currentItem()['idQuota'];?>" >Editar:</a>
+                        <a href="<? echo $edit_uri.$quotas['idQuota'];?>" >Editar:</a>
                         &nbsp;&nbsp;
-                        <a href="<? echo $delete_uri.$modelo->currentItem()['idQuota'];?>" >Delete:</a>
+                        <a href="<? echo $delete_uri.$quotas['idQuota'];?>" >Delete:</a>
                     </td>
                 </tr>
-            <?endif;?>
-        <? //endforeach;
-        endfor;?>
+        <? endforeach;?>
         </tbody>
     </table>
 </div>

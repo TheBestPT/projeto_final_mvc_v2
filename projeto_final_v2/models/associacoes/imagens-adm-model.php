@@ -3,7 +3,7 @@ class ImagensAdmModel extends ItemsModel
 {
     public $table_name = 'imagem';
     public $idTable = 'idImagem';
-    public $urlName = '--';
+    public $urlName = 'associacoes/admimages';
     public $form = 'insere_img';
     public $haveImage = true;
     public $action = true;

@@ -10,8 +10,8 @@ $delete_uri = $adm_uri.'del/';
     <?
     echo $modelo->form_confirma;
     $modelo->insere_items();
-    $modelo->obter_items();
-    $modelo->delete_items();
+    $modelo->obter_items('');
+    $modelo->delete_items('');
     ?>
     <h1>Criar e editar eventos:</h1>
     <form method="post" action="" enctype="multipart/form-data">
@@ -88,25 +88,25 @@ $delete_uri = $adm_uri.'del/';
         </tr>
         </thead>
         <tbody>
-        <? foreach($lista as $evento): ?>
+        <? for($modelo->first(); !$modelo->isDone();$modelo->next()): ?>
             <tr>
-                <td><a href="<? echo HOME_URI.'/evento/index/'.$evento['idEvento'];?>"><? echo $evento['idEvento'];?></a></td>
-                <td><? echo $evento['titulo'];?></td>
-                <td><? echo $evento['evento'];?></td>
+                <td><a href="<? echo HOME_URI.'/evento/index/'.$modelo->currentItem()['idEvento'];?>"><? echo $modelo->currentItem()['idEvento'];?></a></td>
+                <td><? echo $modelo->currentItem()['titulo'];?></td>
+                <td><? echo $modelo->currentItem()['evento'];?></td>
                 <td>
                     <p>
-                        <img src="<?echo HOME_URI.'/views/_uploads/'.$evento['imagem'];?>" width="30px">
+                        <img src="<?echo HOME_URI.'/views/_uploads/'.$modelo->currentItem()['imagem'];?>" width="30px">
                     </p>
                 </td>
-                <td><? echo $evento['dataComeco'];?></td>
-                <td><? echo $evento['dataTermino'];?></td>
+                <td><? echo $modelo->currentItem()['dataComeco'];?></td>
+                <td><? echo $modelo->currentItem()['dataTermino'];?></td>
                 <td>
-                    <a href="<? echo $edit_uri.$evento['idEvento'];?>" >Editar:</a>
+                    <a href="<? echo $edit_uri.$modelo->currentItem()['idEvento'];?>" >Editar:</a>
                     &nbsp;&nbsp;
-                    <a href="<? echo $delete_uri.$evento['idEvento'];?>" >Delete:</a>
+                    <a href="<? echo $delete_uri.$modelo->currentItem()['idEvento'];?>" >Delete:</a>
                 </td>
             </tr>
-        <? endforeach;?>
+        <? endfor;?>
         </tbody>
     </table>
 </div>

@@ -82,7 +82,7 @@
                 }
 
             }else{
-                print_r($_POST);
+                //print_r($_POST);
                 $query = $this->db->insert('socios', array(
                     'login' => chk_array($this->form_data,'login'),
                     'password' => $password,

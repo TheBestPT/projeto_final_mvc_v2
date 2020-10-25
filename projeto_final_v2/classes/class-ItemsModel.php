@@ -1,12 +1,6 @@
 <?php
 class ItemsModel extends MainModel{
     public $posts_por_pagina = 5;
-   /* public function __construct($db = false, $controller = null){
-        $this->db = $db;
-        $this->controller = $controller;
-        $this->parametros = $this->controller->parametros;
-        $this->userdata = $this->controller->userdata;
-    }*/
 
     public $table_name;
     public $idTable;
@@ -28,7 +22,7 @@ class ItemsModel extends MainModel{
         $this->userdata = $this->controller->userdata;
     }
 
-    public function obter_items() {
+    public function obter_items($uri) {
         $param = ($this->action) ? 1 : 0;
         if (chk_array($this->parametros, $param) != 'edit')
             return;
@@ -41,93 +35,38 @@ class ItemsModel extends MainModel{
         if ('POST' == $_SERVER['REQUEST_METHOD'] && !empty($_POST[$this->form])) {
             unset($_POST[$this->form]);
             $query = $this->db->update($this->table_name, $this->idTable, $assoc_id, $_POST);
-
             if ($query) {
                 $this->form_msg = '<p class="success">Item atualizado com sucesso!</p>';
+                if(!$this->action){
+                    echo '<meta http-equiv="Refresh" content="0; url = '.HOME_URI.'/'.$this->urlName.'/adm">';
+                    echo '<script type="text/javascript">window.location.href = "'.HOME_URI.'/'.$this->urlName.'/adm/" </script>';
+                }else{
+                    echo '<meta http-equiv="Refresh" content="0; url = '.HOME_URI.'/'.$uri.'">';
+                    echo '<script type="text/javascript">window.location.href = "'.HOME_URI.'/'.$uri.'</script>';
+                }
             }
         }
         $query = $this->db->query(
             'SELECT * FROM '.$this->table_name.' WHERE '.$this->idTable.' = ? LIMIT 1', array($assoc_id)
         );
         $fetch_data = $query->fetch();
-
         if (empty($fetch_data)) {
             return;
         }
 
         $this->form_data = $fetch_data;
 
-    }
-
-    public function updateItem(){
-        if (chk_array($this->parametros, 0) != 'edit') {
-            return;
-        }
-
-        if (!is_numeric(chk_array($this->parametros, 1))) {
-            return;
-        }
-
-        // Configura o ID da projeto
-        $assoc_id = chk_array($this->parametros, 1);
-        if ('POST' == $_SERVER['REQUEST_METHOD'] && !empty($_POST[$this->form])) {
-            unset($_POST[$this->form]);
-
-            $query = $this->db->update($this->table_name, $this->idTable, $assoc_id, $_POST);
-            echo $query;
-            if ($query) {
-                $this->form_msg = '<p class="success">Item atualizado com sucesso!</p>';
-            }
-        }
-        $query = $this->db->query(
-            'SELECT * FROM '.$this->table_name.' WHERE '.$this->idTable.' = ? LIMIT 1', array($assoc_id)
-        );
-        $fetch_data = $query->fetch();
-
-        if (empty($fetch_data)) {
-            return;
-        }
-
-        $this->form_data = $fetch_data;
-    }
-
-    public function updateItemUrl($tableName, $idTable, $insere, $id){
-        if (chk_array($this->parametros, 1) != 'edit') {
-            return;
-        }
-
-        if (!is_numeric(chk_array($this->parametros, 2))) {
-            return;
-        }
-        if ('POST' == $_SERVER['REQUEST_METHOD'] && !empty($_POST[$insere])) {
-            unset($_POST[$insere]);
-            print_r($_POST);
-            $query = $this->db->update($tableName, $idTable, $id, $_POST);
-            if ($query) {
-                $this->form_msg = '<p class="success">projeto atualizado com sucesso!</p>';
-            }
-        }
-        $query = $this->db->query(
-            'SELECT * FROM '.$tableName.' WHERE '.$idTable.' = ? LIMIT 1', array($id)
-        );
-        $fetch_data = $query->fetch();
-
-        if (empty($fetch_data)) {
-            return;
-        }
-
-        $this->form_data = $fetch_data;
     }
 
     public function listar_items(){
         $param = ($this->action) ? 1 : 0;
         $id = $where = $query_limit = null;
-
-        if(is_numeric(chk_array($this->parametros, $param))){
-            $id = array(chk_array($this->parametros, $param));
+        $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+        if(is_numeric(chk_array($this->parametros, 0)) && strpos($actual_link, 'index')){
+            $id = array(chk_array($this->parametros, 0));
             $where = ' WHERE '.$this->idTable.' = ? ';
         }
-
+        //nao fiz paginacao por isso e inutil
         $pagina = !empty($this->parametros[1]) ? $this->parametros[1] : 1;
         $pagina--;
         $posts_por_pagina = $this->posts_por_pagina;
@@ -135,8 +74,10 @@ class ItemsModel extends MainModel{
         if(empty($this->sem_limite)){
             $query_limit = " LIMIT $offset, $posts_por_pagina ";
         }
-
-        $query = $this->db->query('SELECT * FROM '.$this->table_name.' ' . $where . ' ORDER BY '.$this->idTable.' DESC' . $query_limit, $id);
+        if($where != '')
+            $query = $this->db->query('SELECT * FROM '.$this->table_name.' ' . $where . ' ORDER BY '.$this->idTable.' DESC' . $query_limit, $id);
+        else
+            $query = $this->db->query('SELECT * FROM '.$this->table_name.' ' . $where . ' ORDER BY '.$this->idTable.' DESC');
         return $query->fetchAll();
 
     }
@@ -162,6 +103,12 @@ class ItemsModel extends MainModel{
             // Insere a imagem em $_POST
             $_POST['imagem'] = $imagem;
         }
+        foreach($_POST as $key => $value){
+            if(empty($value)){
+                $this->form_msg = '<p class="form_error"> There are empty fields. Data has not been sent.</p>';
+                return;
+            }
+        }
         $query = $this->db->insert($this->table_name, $_POST);
 
         if ($query) {
@@ -172,7 +119,7 @@ class ItemsModel extends MainModel{
         $this->form_msg = '<p class="error">Erro ao enviar dados!</p>';
     }
 
-    public function delete_items($parametros = array()){
+    public function delete_items($uri){
         $param = ($this->action) ? 1 : 0;
         //echo $param;
         if(chk_array($this->parametros, $param) != 'del'){
@@ -182,20 +129,17 @@ class ItemsModel extends MainModel{
 
         if(!is_numeric(chk_array($this->parametros, ++$param)))
             return;
-        //echo '    '.$param;
-        /*if(!is_numeric(chk_array($this->parametros, ++$param)) != 'confirma'){
-            $mensagem='<p class="alert">Tem Mesmo certeza que quer apagar o  projeto</p>';
-            $mensagem.='<p><a href="'.$_SERVER['REQUEST_URI'] .'/confirma/">Sim</a> |';
-            $mensagem .='<a href="'. HOME_URI .'/'.$this->urlName.'/adm">Não</a></p>';
-            return $mensagem;
-        }*/
-        echo $param;
         $projeto_id = (int) chk_array($this->parametros, $param);
         $query = $this->db->delete($this->table_name, $this->idTable, $projeto_id);
-        //header("Refresh:0");
-        //redireciona para a pagina de administrcao de projetos
-        echo '<meta http-equiv="Refresh" content="0; url = '.HOME_URI.'/'.$this->urlName.'/adm">';
-        echo '<script type="text/javascript">window.location.href = "'.HOME_URI.'/'.$this->urlName.'/adm/" </script>';
+        //NOTA: TIVE ALGUNS PROBLEMAS COM REDIRECIONAMENTOS POR ISSO E QUE TEM ESTA SOLUCAO UM POUCO MAL FEITA
+        if(!$this->action){
+            echo '<meta http-equiv="Refresh" content="0; url = '.HOME_URI.'/'.$this->urlName.'/adm">';
+            echo '<script type="text/javascript">window.location.href = "'.HOME_URI.'/'.$this->urlName.'/adm/" </script>';
+        }else{
+            echo '<meta http-equiv="Refresh" content="0; url = '.HOME_URI.'/'.$uri.'">';
+            echo '<script type="text/javascript">window.location.href = "'.HOME_URI.'/'.$uri.'</script>';
+        }
+
     }
 
     public function getAll($table_name = ''){
@@ -220,7 +164,14 @@ class ItemsModel extends MainModel{
     public function paginacao(){
     }
 
-
+    public function getItem($tableName = "", $idTable = 0, $idConfirm  =0){
+            //if($tableName != "" && $idTable != 0 && $idConfirm != 0){
+                $query = $this->db->query('SELECT * FROM '.$tableName.' WHERE '.$idTable.' = '.$idConfirm);
+                //echo 'SELECT * FROM '.$tableName.' WHERE '.$idTable.' = '.$idConfirm;
+                //print_r($query->fetchAll());
+                return $query->fetchAll();
+            //}
+    }
     public function upload_imagem(){
         if(empty($_FILES['projeto_imagem']) && empty($_FILES['imagem'])){
             return;

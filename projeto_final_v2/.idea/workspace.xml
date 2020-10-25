@@ -27,18 +27,18 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\projeto_final\views\associacoes" />
-      <recent name="C:\xampp\htdocs\projeto_final\views\eventos" />
-      <recent name="C:\xampp\htdocs\projeto_final\classes" />
-      <recent name="C:\xampp\htdocs\projeto_final\models" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\projeto_final\views\noticias" />
       <recent name="C:\xampp\htdocs\projeto_final\models\noticias" />
       <recent name="C:\xampp\htdocs\projeto_final\views\socio-register" />
       <recent name="C:\xampp\htdocs\projeto_final\controllers" />
       <recent name="C:\xampp\htdocs\projeto_final\models\socio-register" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\projeto_final\views\associacoes" />
+      <recent name="C:\xampp\htdocs\projeto_final\views\eventos" />
+      <recent name="C:\xampp\htdocs\projeto_final\classes" />
+      <recent name="C:\xampp\htdocs\projeto_final\models" />
     </key>
   </component>
   <component name="RunManager">
@@ -85,6 +85,7 @@
       <workItem from="1603399416221" duration="2029000" />
       <workItem from="1603480300822" duration="7930000" />
       <workItem from="1603542784347" duration="10436000" />
+      <workItem from="1603626033329" duration="19913000" />
     </task>
     <servers />
   </component>

@@ -13,16 +13,8 @@ $admin_assoc_eventos = HOME_URI.'/associacoes/eventosassoc/';
     <?
     echo $modelo->form_confirma;
     $modelo->insere_items();
-    $modelo->obter_items();
-    $modelo->delete_items();
-    //print_r($modelo->lista);
-    /*for($modelo->first(); !$modelo->isDone();$modelo->next()){
-        echo $modelo->currentItem()['nome'];
-    }*/
-    $l = new IteratorInterno($modelo->lista);
-    //print_r($modelo->lista);
-    //$test = $l->loop();
-    //print_r($test);
+    $modelo->obter_items('');
+    $modelo->delete_items('');
     ?>
     <form method="post" action="" enctype="multipart/form-data">
         <table class="form-table">
@@ -64,12 +56,6 @@ $admin_assoc_eventos = HOME_URI.'/associacoes/eventosassoc/';
         <input type="hidden" name="insere_assoc" value="1"/>
     </form>
 
-
-    <?
-    //echo $l->trazItems('nome');
-    //$lista = $modelo->listar_items();
-    //echo $l->loop();
-    ?>
     <h1>Lista de Associações</h1>
     <table id="tbl-projeto" class="list-table">
         <thead>
@@ -83,8 +69,7 @@ $admin_assoc_eventos = HOME_URI.'/associacoes/eventosassoc/';
         </tr>
         </thead>
         <tbody>
-        <? //foreach($lista as $assoc):
-        for($modelo->first(); !$modelo->isDone();$modelo->next()):?>
+        <?for($modelo->first(); !$modelo->isDone();$modelo->next()):?>
             <tr>
                 <td><a href="<? echo HOME_URI.'/associacoes/index/'.$modelo->currentItem()['idAssoc'];?>"><? echo $modelo->currentItem()['idAssoc'];?></a></td>
                 <td><? echo $modelo->currentItem()['nome']; ?></td>
@@ -103,8 +88,7 @@ $admin_assoc_eventos = HOME_URI.'/associacoes/eventosassoc/';
                     <a href="<? echo $admin_assoc_eventos.$modelo->currentItem()['idAssoc'];?>" >Reutilizar eventos:</a>
                 </td>
             </tr>
-        <? //endforeach;
-        endfor;?>
+        <?endfor;?>
         </tbody>
     </table>
 </div>

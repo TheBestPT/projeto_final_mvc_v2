@@ -5,8 +5,6 @@ class AssociacoesController extends MainController{
     public function index(){
         $this->title = 'Associacoes';
         $parametros = ( func_num_args() >= 1 ) ? func_get_arg(0) : array();
-
-        //$modelo = $this->load_model('associacoes/associacoes-adm-model');
         $this->factory->model('assoc_adm');
         $modelo = $this->factory->chamarFabricas();
         require ABSPATH . '/views/_includes/header.php';
@@ -27,10 +25,6 @@ class AssociacoesController extends MainController{
             echo 'Não tem permissoes para aceder a esta pagina';
             return;
         }
-        //$modelo = $this->load_model('associacoes/associacoes-adm-model');
-        //$modelo = $this->load_model('classes/class-FabricaModels');
-        //$modelo = $modelo->model('assoc_adm');
-        //$fabrica = new FabricaModels($this->db, $this);
         $this->factory->model('assoc_adm');
         $modelo = $this->factory->chamarFabricas();
         require ABSPATH . '/views/_includes/header.php';
@@ -71,7 +65,6 @@ class AssociacoesController extends MainController{
             echo 'Não tem permissoes para aceder a esta pagina';
             return;
         }
-        //$modelo = $this->load_model('associacoes/quotas-adm-model');
         $this->factory->model('quotas');
         $modelo = $this->factory->chamarFabricas();
         require ABSPATH . '/views/_includes/header.php';
@@ -92,7 +85,6 @@ class AssociacoesController extends MainController{
             echo 'Não tem permissoes para aceder a esta pagina';
             return;
         }
-        //$modelo = $this->load_model('associacoes/imagens-adm-model');
         $this->factory->model('img');
         $modelo = $this->factory->chamarFabricas();
         require ABSPATH . '/views/_includes/header.php';
@@ -113,7 +105,6 @@ class AssociacoesController extends MainController{
             echo 'Não tem permissoes para aceder a esta pagina';
             return;
         }
-        //$modelo = $this->load_model('associacoes/eventos-assoc-model');
         $this->factory->model('eventos_assoc');
         $modelo = $this->factory->chamarFabricas();
         require ABSPATH . '/views/_includes/header.php';

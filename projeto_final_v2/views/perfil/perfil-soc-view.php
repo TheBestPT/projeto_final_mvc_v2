@@ -63,6 +63,8 @@ $modelo->cancelarEvento($this->parametros);
             <th>Titulo</th>
             <th>Evento</th>
             <th>Imagem</th>
+            <th>Data de Começo</th>
+            <th>Data de Termino</th>
             <th>Cancelar</th>
         </tr>
         </thead>
@@ -78,6 +80,8 @@ $modelo->cancelarEvento($this->parametros);
                         <td>
                             <img src="<?echo HOME_URI.'/views/_uploads/'.$evento['imagem'];?>" width="30px">
                         </td>
+                        <td><? echo $evento['dataComeco'];?></td>
+                        <td><? echo $evento['dataTermino'];?></td>
                         <td>
                             <a href="<? echo $cancela_uri.$evento['idEvento']?>" >Cancelar:</a>
                         </td>
