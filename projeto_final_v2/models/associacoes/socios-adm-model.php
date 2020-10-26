@@ -2,7 +2,7 @@
 class SociosAdmModel extends ItemsModel {
     public $table_name = 'socios';
     public $idTable = 'idSocio';
-    public $urlName = 'admassoc';
+    public $urlName = 'associacoes/admassoc/';
     public $form = 'insere_soc';
     public $haveImage = false;
     public $action = true;

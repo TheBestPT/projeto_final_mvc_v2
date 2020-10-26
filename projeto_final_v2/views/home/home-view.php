@@ -1,5 +1,5 @@
 <?
-verifyPath();
+if(!defined('ABSPATH')) exit;
 $assoc = $modelo->getAll('associacao');
 ?>
 

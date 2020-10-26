@@ -1,4 +1,4 @@
-<?verifyPath();?>
+<?if(!defined('ABSPATH')) exit;?>
 
 <div class="wrap">
     <?
@@ -13,6 +13,9 @@
         if(is_numeric(chk_array($modelo->parametros,0))):?>
             <p>Titulo: <?echo $eventos['titulo'];?></p>
             <p>Evento: <?echo $eventos['evento'];?></p>
+            <p>Data de comeco: <?echo $eventos['dataComeco'];?></p>
+            <p>Data de termino: <?echo $eventos['dataTermino'];?></p>
+            <p></p>
             <p>Associacões que estao fazendo este evento: <?$list_assoc = $modelo->list_by_id_eventos_assoc($eventos['idEvento']);
                 $assoc = [];
                 foreach ($list_assoc as $item) {

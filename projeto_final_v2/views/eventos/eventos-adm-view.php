@@ -1,4 +1,4 @@
-<?verifyPath();?>
+<?if(!defined('ABSPATH')) exit;?>
 
 <?
 $adm_uri = HOME_URI.'/evento/adm/';
@@ -10,8 +10,8 @@ $delete_uri = $adm_uri.'del/';
     <?
     echo $modelo->form_confirma;
     $modelo->insere_items();
-    $modelo->obter_items('');
-    $modelo->delete_items('');
+    $modelo->obter_items();
+    $modelo->delete_items();
     ?>
     <h1>Criar e editar eventos:</h1>
     <form method="post" action="" enctype="multipart/form-data">

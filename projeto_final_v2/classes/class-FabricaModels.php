@@ -1,11 +1,8 @@
 <?php
 class FabricaModels implements FactoryMethod{
-    public $model;
+    private $model;
     public $db;
     public $controller;
-    /*public function __construct($model = 'assoc'){
-        $this->model = $model;
-    }*/
     public function __construct($db = false, $controller = null)
     {
         $this->db = $db;

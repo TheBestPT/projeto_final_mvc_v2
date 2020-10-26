@@ -1,5 +1,5 @@
 <?php
-verifyPath();
+if(!defined('ABSPATH')) exit;
 $id_soc = 0;
 if(chk_array($this->parametros, 0))
     $id_soc = chk_array($this->parametros, 0);

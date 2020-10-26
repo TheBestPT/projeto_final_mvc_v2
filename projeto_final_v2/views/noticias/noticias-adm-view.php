@@ -1,19 +1,17 @@
-<?verifyPath();?>
+<?if(!defined('ABSPATH')) exit;?>
 
 <?
 $asso = false;
-$uri_refresh = '';
 if(is_numeric(chk_array($this->parametros, 0))){
     $id_assoc = chk_array($this->parametros, 0);
     $asso = $modelo->notAction();
     $adm_uri = HOME_URI.'/noticias/adm/'.$id_assoc.'/';
-    $uri_refresh = '/noticias/adm/'.$id_assoc.'/';
+    $modelo->urlName .= '/'.$id_assoc.'/';
 }else{
     $adm_uri = HOME_URI.'/noticias/adm/';
 }
 $edit_uri = $adm_uri.'edit/';
 $delete_uri = $adm_uri.'del/';
-//echo $asso;
 
 
 
@@ -22,8 +20,8 @@ $delete_uri = $adm_uri.'del/';
 <div class="wrap">
     <?
     $modelo->insere_items();
-    $modelo->obter_items($uri_refresh);
-    $modelo->delete_items($uri_refresh);
+    $modelo->obter_items();
+    $modelo->delete_items();
     ?>
     <h1>Criar e editar noticias:</h1>
     <form method="post" action="" enctype="multipart/form-data">

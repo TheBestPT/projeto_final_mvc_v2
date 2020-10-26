@@ -1,7 +1,7 @@
 <?php
-verifyPath();
+if(!defined('ABSPATH')) exit;
 $id_assoc = 0;
-if(chk_array($this->parametros, 0))
+if(is_numeric(chk_array($this->parametros, 0)))
     $id_assoc = chk_array($this->parametros, 0);
 else
     header('location: '.HOME_URI.'associacoes/adm');
@@ -10,10 +10,10 @@ $edit_uri = $adm_uri.'edit/';
 $delete_uri = $adm_uri.'del/';
 echo $modelo->form_confirma;
 $admin_quota_uri = HOME_URI.'/associacoes/assocquotas/';
-$uri_refresh = '/associacoes/admassoc/'.$id_assoc.'/';
+$modelo->urlName .= '/'.$id_assoc.'/';
 $modelo->insere_items();
-$modelo->obter_items($uri_refresh);
-$modelo->delete_items($uri_refresh);
+$modelo->obter_items();
+$modelo->delete_items();
 ?>
 <h1>Editar Socios:</h1>
 <form method="post" action="" enctype="multipart/form-data">

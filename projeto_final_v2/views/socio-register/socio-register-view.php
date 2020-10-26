@@ -1,4 +1,4 @@
-<?php verifyPath();?>
+<?php if(!defined('ABSPATH')) exit;?>
 
 <div class="wrap">
 

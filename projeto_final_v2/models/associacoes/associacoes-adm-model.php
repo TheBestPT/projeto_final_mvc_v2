@@ -1,8 +1,8 @@
 <?php
-class AssociacoesAdmModel extends ItemsModel implements IteratorInterface {
+class AssociacoesAdmModel extends ItemsModel {
     public $table_name = 'associacao';
     public $idTable = 'idAssoc';
-    public $urlName = 'associacoes';
+    public $urlName = 'associacoes/adm';
     public $form = 'insere_assoc';
     public $haveImage = false;
     public $action = false;
@@ -30,25 +30,5 @@ class AssociacoesAdmModel extends ItemsModel implements IteratorInterface {
     }
 
 
-    public function first(){
-        $this->contador = 0;
-    }
-
-    public function next(){
-        $this->contador++;
-    }
-
-    public function isDone(){
-        return $this->contador == count($this->lista);
-    }
-
-    public function currentItem(){
-        if($this->isDone()){
-            $this->contador = count($this->lista)-1;
-        }else if($this->contador < 0){
-            $this->contador = 0;
-        }
-        return $this->lista[$this->contador];
-    }
 }
 ?>

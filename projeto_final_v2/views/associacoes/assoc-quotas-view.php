@@ -1,17 +1,17 @@
 <?php
-verifyPath();
+if(!defined('ABSPATH')) exit;
 $id_soc = 0;
 if(chk_array($this->parametros, 0))
     $id_soc = chk_array($this->parametros, 0);
 else
     header('location: '.HOME_URI.'associacoes/adm');
 $adm_uri = HOME_URI.'/associacoes/assocquotas/'.$id_soc.'/';
-$uri_refresh = '/associacoes/assocquotas/'.$id_soc.'/';
+$modelo->urlName .= '/'.$id_soc.'/';
 $edit_uri = $adm_uri.'edit/';
 $delete_uri = $adm_uri.'del/';
 $modelo->insere_items();
-$modelo->obter_items($uri_refresh);
-$modelo->delete_items($uri_refresh);
+$modelo->obter_items();
+$modelo->delete_items();
 ?>
 <h1>Criar e editar quotas:</h1>
 <form method="post" action="" enctype="multipart/form-data">

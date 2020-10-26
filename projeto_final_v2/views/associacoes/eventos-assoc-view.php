@@ -1,7 +1,7 @@
 <?php
-verifyPath();
+if(!defined('ABSPATH')) exit;
 $id_assoc = 0;
-if(chk_array($this->parametros, 0))
+if(is_numeric(chk_array($this->parametros, 0)))
     $id_assoc = chk_array($this->parametros, 0);
 else
     header('location: '.HOME_URI.'associacoes/adm');
@@ -25,7 +25,10 @@ $modelo->delEvento();
                 <? endforeach; ?>
             </select>
         </td>
+
     </tr>
+
+
     <tr>
         <td><input type="submit" value="Save"></td>
         <input type="hidden" value="1" name="insere_evento">

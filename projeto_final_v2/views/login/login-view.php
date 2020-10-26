@@ -1,4 +1,4 @@
-<? verifyPath(); ?>
+<? if(!defined('ABSPATH')) exit; ?>
 
 <div class="wrap">
 <?

@@ -1,16 +1,17 @@
 <?php
-verifyPath();
+if(!defined('ABSPATH')) exit;
 $id_assoc = 0;
-if(chk_array($this->parametros, 0))
+if(is_numeric(chk_array($this->parametros, 0)))
     $id_assoc = chk_array($this->parametros, 0);
 else
     header('location: '.HOME_URI.'associacoes/adm');
 $adm_uri = HOME_URI.'/associacoes/admimages/'.$id_assoc.'/';
 $edit_uri = $adm_uri.'edit/';
 $delete_uri = $adm_uri.'del/';
-$del_uri = '/associacoes/admimages/'.$id_assoc.'/';
+$modelo->urlName .= '/'.$id_assoc.'/';
+echo $modelo->urlName;
 $modelo->insere_items();
-$modelo->delete_items($del_uri);
+$modelo->delete_items();
 ?>
 <h1>Escolher imagem para associção</h1>
 <form method="post" action="" enctype="multipart/form-data">

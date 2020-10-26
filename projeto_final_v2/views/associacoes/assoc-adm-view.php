@@ -1,4 +1,4 @@
-<?verifyPath();?>
+<?if(!defined('ABSPATH')) exit;?>
 <?
 $adm_uri = HOME_URI.'/associacoes/adm/';
 $edit_uri = $adm_uri.'edit/';
@@ -13,8 +13,8 @@ $admin_assoc_eventos = HOME_URI.'/associacoes/eventosassoc/';
     <?
     echo $modelo->form_confirma;
     $modelo->insere_items();
-    $modelo->obter_items('');
-    $modelo->delete_items('');
+    $modelo->obter_items();
+    $modelo->delete_items();
     ?>
     <form method="post" action="" enctype="multipart/form-data">
         <table class="form-table">

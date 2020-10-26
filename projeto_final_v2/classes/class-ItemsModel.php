@@ -1,5 +1,5 @@
 <?php
-class ItemsModel extends MainModel{
+class ItemsModel extends MainModel implements IteratorInterface {
     public $posts_por_pagina = 5;
 
     public $table_name;
@@ -22,7 +22,7 @@ class ItemsModel extends MainModel{
         $this->userdata = $this->controller->userdata;
     }
 
-    public function obter_items($uri) {
+    public function obter_items() {
         $param = ($this->action) ? 1 : 0;
         if (chk_array($this->parametros, $param) != 'edit')
             return;
@@ -30,24 +30,18 @@ class ItemsModel extends MainModel{
         if (!is_numeric(chk_array($this->parametros, ++$param)))
             return;
 
-        // Configura o ID da projeto
-        $assoc_id = chk_array($this->parametros, $param);
+        $id = chk_array($this->parametros, $param);
         if ('POST' == $_SERVER['REQUEST_METHOD'] && !empty($_POST[$this->form])) {
             unset($_POST[$this->form]);
-            $query = $this->db->update($this->table_name, $this->idTable, $assoc_id, $_POST);
+            $query = $this->db->update($this->table_name, $this->idTable, $id, $_POST);
             if ($query) {
                 $this->form_msg = '<p class="success">Item atualizado com sucesso!</p>';
-                if(!$this->action){
-                    echo '<meta http-equiv="Refresh" content="0; url = '.HOME_URI.'/'.$this->urlName.'/adm">';
-                    echo '<script type="text/javascript">window.location.href = "'.HOME_URI.'/'.$this->urlName.'/adm/" </script>';
-                }else{
-                    echo '<meta http-equiv="Refresh" content="0; url = '.HOME_URI.'/'.$uri.'">';
-                    echo '<script type="text/javascript">window.location.href = "'.HOME_URI.'/'.$uri.'</script>';
-                }
+                echo '<meta http-equiv="Refresh" content="0; url = '.HOME_URI.'/'.$this->urlName.'">';
+                echo '<script type="text/javascript">window.location.href = "'.HOME_URI.'/'.$this->urlName.'</script>';
             }
         }
         $query = $this->db->query(
-            'SELECT * FROM '.$this->table_name.' WHERE '.$this->idTable.' = ? LIMIT 1', array($assoc_id)
+            'SELECT * FROM '.$this->table_name.' WHERE '.$this->idTable.' = ? LIMIT 1', array($id)
         );
         $fetch_data = $query->fetch();
         if (empty($fetch_data)) {
@@ -119,26 +113,19 @@ class ItemsModel extends MainModel{
         $this->form_msg = '<p class="error">Erro ao enviar dados!</p>';
     }
 
-    public function delete_items($uri){
+    public function delete_items(){
         $param = ($this->action) ? 1 : 0;
         //echo $param;
         if(chk_array($this->parametros, $param) != 'del'){
             return;
         }
 
-
         if(!is_numeric(chk_array($this->parametros, ++$param)))
             return;
         $projeto_id = (int) chk_array($this->parametros, $param);
         $query = $this->db->delete($this->table_name, $this->idTable, $projeto_id);
-        //NOTA: TIVE ALGUNS PROBLEMAS COM REDIRECIONAMENTOS POR ISSO E QUE TEM ESTA SOLUCAO UM POUCO MAL FEITA
-        if(!$this->action){
-            echo '<meta http-equiv="Refresh" content="0; url = '.HOME_URI.'/'.$this->urlName.'/adm">';
-            echo '<script type="text/javascript">window.location.href = "'.HOME_URI.'/'.$this->urlName.'/adm/" </script>';
-        }else{
-            echo '<meta http-equiv="Refresh" content="0; url = '.HOME_URI.'/'.$uri.'">';
-            echo '<script type="text/javascript">window.location.href = "'.HOME_URI.'/'.$uri.'</script>';
-        }
+        echo '<meta http-equiv="Refresh" content="0; url = '.HOME_URI.'/'.$this->urlName.'">';
+        echo '<script type="text/javascript">window.location.href = "'.HOME_URI.'/'.$this->urlName.'</script>';
 
     }
 
@@ -232,5 +219,27 @@ class ItemsModel extends MainModel{
     public function notAction(){
         $this->action = ($this->action) ? false : true;
         return $this->action;
+    }
+
+
+    public function first(){
+        $this->contador = 0;
+    }
+
+    public function next(){
+        $this->contador++;
+    }
+
+    public function isDone(){
+        return $this->contador == count($this->lista);
+    }
+
+    public function currentItem(){
+        if($this->isDone()){
+            $this->contador = count($this->lista)-1;
+        }else if($this->contador < 0){
+            $this->contador = 0;
+        }
+        return $this->lista[$this->contador];
     }
 }

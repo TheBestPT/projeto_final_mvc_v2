@@ -1,8 +1,8 @@
 <?php
-class NoticiasAdmModel extends ItemsModel implements IteratorInterface {
+class NoticiasAdmModel extends ItemsModel{
     public $table_name = 'noticias';
     public $idTable = 'idNoticia';
-    public $urlName = 'noticias';
+    public $urlName = 'noticias/adm';
     public $form = 'insere_noticia';
     public $haveImage = true;
     public $action = false;
@@ -25,27 +25,6 @@ class NoticiasAdmModel extends ItemsModel implements IteratorInterface {
             return $query->fetchAll();
         }
         return [];
-    }
-
-    public function first(){
-        $this->contador = 0;
-    }
-
-    public function next(){
-        $this->contador++;
-    }
-
-    public function isDone(){
-        return $this->contador == count($this->lista);
-    }
-
-    public function currentItem(){
-        if($this->isDone()){
-            $this->contador = count($this->lista)-1;
-        }else if($this->contador < 0){
-            $this->contador = 0;
-        }
-        return $this->lista[$this->contador];
     }
 }
 ?>
