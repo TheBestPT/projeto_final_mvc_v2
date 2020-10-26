@@ -9,8 +9,10 @@ $socio = $modelo->get_soc_by_id($id_soc);
 $adm_uri = HOME_URI.'/perfil/me/'.$id_soc.'/';
 $pagamento_uri = $adm_uri.'pay/';
 $cancela_uri = $adm_uri.'can/';
+$register_uri = $adm_uri.'register/';
 $modelo->pay($this->parametros);
 $modelo->cancelarEvento($this->parametros);
+$modelo->registar($this->parametros);
 ?>
 <h1>Perfil: </h1>
 <p>
@@ -53,8 +55,8 @@ $modelo->cancelarEvento($this->parametros);
 </div>
 <div class="wrap">
     <?
-    $lista_evento_soc = $modelo->get_id_incricao($id_soc);
-    $lista_eventos = "";
+    $lista_evento_soc = $modelo->get_eventos($socio['idAssoc']);
+    $lista_eventos = null;
     ?>
     <h1>Lista de eventos em que estás inscrito:</h1>
     <table id="tbl-projeto" class="list-table">
@@ -65,6 +67,7 @@ $modelo->cancelarEvento($this->parametros);
             <th>Imagem</th>
             <th>Data de Começo</th>
             <th>Data de Termino</th>
+            <th>Inscrição</th>
             <th>Cancelar</th>
         </tr>
         </thead>
@@ -82,8 +85,10 @@ $modelo->cancelarEvento($this->parametros);
                         </td>
                         <td><? echo $evento['dataComeco'];?></td>
                         <td><? echo $evento['dataTermino'];?></td>
+                        <td><? if(!empty($modelo->get_id_incricao($evento['idEvento'], $id_soc)['idEvento'])) echo "Inscrito"; else echo "Não inscrito";?></td>
                         <td>
                             <a href="<? echo $cancela_uri.$evento['idEvento']?>" >Cancelar:</a>
+                            <a href="<? echo $register_uri.$evento['idEvento']?>" >Inscrever:</a>
                         </td>
                     </tr>
             <? endforeach;?>

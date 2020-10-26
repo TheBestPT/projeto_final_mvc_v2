@@ -9,7 +9,6 @@ $adm_uri = HOME_URI.'/associacoes/admimages/'.$id_assoc.'/';
 $edit_uri = $adm_uri.'edit/';
 $delete_uri = $adm_uri.'del/';
 $modelo->urlName .= '/'.$id_assoc.'/';
-echo $modelo->urlName;
 $modelo->insere_items();
 $modelo->delete_items();
 ?>

@@ -54,8 +54,7 @@ $modelo->delEvento();
         </tr>
         </thead>
         <tbody>
-        <? foreach($lista as $evento):
-        //for($modelo->first(); !$modelo->isDone();$modelo->next()):?>
+        <? foreach($lista as $evento):?>
             <tr>
                 <td><a href="<? echo HOME_URI.'/evento/index/'.$evento['idEvento'];?>"><? echo $evento['idEvento'];?></a></td>
                 <td><? echo $evento['titulo'];?></td>
@@ -71,8 +70,7 @@ $modelo->delEvento();
                     <a href="<? echo $delete_uri.$evento['idEvento'].'/'.$evento['idAssoc'];?>" >Delete:</a>
                 </td>
             </tr>
-        <? endforeach;
-        //endfor;?>
+        <? endforeach;?>
         </tbody>
     </table>
 </div>

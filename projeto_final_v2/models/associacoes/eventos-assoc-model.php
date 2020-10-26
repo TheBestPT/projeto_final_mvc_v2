@@ -1,5 +1,5 @@
 <?php
-class EventosAssocModel extends ItemsModel implements IteratorInterface {
+class EventosAssocModel extends ItemsModel{
 
     public $table_name = 'eventos';
     public $idTable = 'idEvento';
@@ -7,8 +7,6 @@ class EventosAssocModel extends ItemsModel implements IteratorInterface {
     public $form = 'insere_evento';
     public $haveImage = true;
     public $action = true;
-    public $contador;
-    public $lista = [];
     public function __construct($db = false, $controller = null)
     {
         $this->db = $db;
@@ -16,7 +14,6 @@ class EventosAssocModel extends ItemsModel implements IteratorInterface {
         $this->parametros = $this->controller->parametros;
         $this->userdata = $this->controller->userdata;
         parent::__construct($this->table_name, $this->idTable, $this->urlName, $this->form, $this->haveImage, $this->action, $this->db, $this->controller);
-        $this->lista = $this->listar_eventos();
     }
 
     public function get_assoc_by_id_evento(){
@@ -38,26 +35,6 @@ class EventosAssocModel extends ItemsModel implements IteratorInterface {
         $query = $this->db->query('SELECT * FROM '.$this->table_name().' ' . $where . ' ORDER BY '.$this->id_table().' DESC' . $query_limit, $id);
         return $query->fetchAll();
     }
-
-    /*public function listar_eventos(){//nao funciona e o codigo esta exatamente igual
-        $id = $where = $query_limit = null;
-
-        if(is_numeric(chk_array($this->parametros, 0))){
-            $id = array(chk_array($this->parametros, 0));
-            $where = ' WHERE a.idAssoc = ? ';
-        }
-        $pagina = !empty($this->parametros[1]) ? $this->parametros[1] : 1;
-        $pagina--;
-        $posts_por_pagina = $this->posts_por_pagina;
-        $offset = $pagina * $posts_por_pagina;
-        if(empty($this->sem_limite)){
-            $query_limit = " LIMIT $offset, $posts_por_pagina ";
-        }
-        $query = $this->db->query('SELECT a.idAssoc, e.idAssoc, e.idEvento, k.idEvento, k.titulo, k.evento FROM associacao a INNER JOIN associaeventos e ON a.idAssoc = e.idAssoc INNER JOIN eventos k ON e.idEvento = k.idEvento '.$where.' ORDER BY a.idAssoc DESC '.$query_limit, $id);
-        print_r($query->fetchAll());
-        $data = $query->fetchAll();
-        return $data;
-    }*/
 
     public function listar_eventos(){
         $id = $where = $query_limit = null;
@@ -82,6 +59,7 @@ class EventosAssocModel extends ItemsModel implements IteratorInterface {
             $query = $this->db->query('SELECT * FROM associaeventos WHERE idEvento = '.$id);
             return $query->fetchAll();
         }
+        return [];
     }
 
     public function list_by_id_eventos($id){
@@ -109,17 +87,10 @@ class EventosAssocModel extends ItemsModel implements IteratorInterface {
             return;
         }
         unset($_POST['insere_evento']);
-        //print_r($_POST);
         $query = $this->db->insert('associaeventos', $_POST);
-        //print_r($_POST);
         $socios = $this->getSociosAssoc($_POST['idAssoc']);
-        //print_r($socios);
-        foreach ($socios as $item){
-            $evento = $_POST['idEvento'];
-            $query2 = $this->db->query('INSERT INTO inscricoes (idEvento, idSocio) VALUES ('.$evento.', '.$item['idSocio'].')');
-        }
 
-        if ($query && $query2) {
+        if ($query) {
             $this->form_msg = '<p class="success">Evento atualizada com sucesso!</p>';
             return;
         }
@@ -135,26 +106,5 @@ class EventosAssocModel extends ItemsModel implements IteratorInterface {
         $query = $this->db->query('DELETE FROM associaeventos WHERE '.$this->idTable.' = '.chk_array($this->parametros, 2).' AND idAssoc = '.chk_array($this->parametros, 3));
         $query2 = $this->db->query('DELETE FROM inscricoes WHERE '.$this->idTable.' = '.chk_array($this->parametros, 2));
         header('location: http://localhost/projeto_final_v2/associacoes/eventosassoc/'.chk_array($this->parametros, 0));
-    }
-
-    public function first(){
-        $this->contador = 0;
-    }
-
-    public function next(){
-        $this->contador++;
-    }
-
-    public function isDone(){
-        return $this->contador == count($this->lista);
-    }
-
-    public function currentItem(){
-        if($this->isDone()){
-            $this->contador = count($this->lista)-1;
-        }else if($this->contador < 0){
-            $this->contador = 0;
-        }
-        return $this->lista[$this->contador];
     }
 }

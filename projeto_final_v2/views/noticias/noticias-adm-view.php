@@ -7,14 +7,12 @@ if(is_numeric(chk_array($this->parametros, 0))){
     $asso = $modelo->notAction();
     $adm_uri = HOME_URI.'/noticias/adm/'.$id_assoc.'/';
     $modelo->urlName .= '/'.$id_assoc.'/';
+    //echo $modelo->action;
 }else{
     $adm_uri = HOME_URI.'/noticias/adm/';
 }
 $edit_uri = $adm_uri.'edit/';
 $delete_uri = $adm_uri.'del/';
-
-
-
 ?>
 
 <div class="wrap">
@@ -74,10 +72,7 @@ $delete_uri = $adm_uri.'del/';
     </form>
 
     <?
-    if (!$asso)
-        $lista = $modelo->listar_items();
-    else
-        $lista = $modelo->getNoticiasById($id_assoc);
+    if ($asso) $modelo->lista = $modelo->getNoticiasById($id_assoc);
     ?>
     <h1>Lista de Noticias</h1>
     <table id="tbl-projeto" class="list-table">

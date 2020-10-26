@@ -134,6 +134,7 @@ class ItemsModel extends MainModel implements IteratorInterface {
             $query = $this->db->query('SELECT * FROM '.$table_name);
             return $query->fetchAll();
         }
+        return [];
     }
 
     public function getSoc(){
@@ -142,9 +143,12 @@ class ItemsModel extends MainModel implements IteratorInterface {
     }
 
     public function getSocName($id = 0){
-        $query =  $this->db->query('SELECT * FROM socios WHERE idSocio = '.$id);
-        $data = $query->fetch();
-        return $data['nome'];
+        if($id != 0){
+            $query =  $this->db->query('SELECT * FROM socios WHERE idSocio = '.$id);
+            $data = $query->fetch();
+            return $data['nome'];
+        }
+        return [];
     }
 
 
@@ -212,8 +216,11 @@ class ItemsModel extends MainModel implements IteratorInterface {
     }
 
     public function getSociosAssoc($id = 0){
-        $query = $this->db->query('SELECT * FROM socios WHERE idAssoc = '.$id);
-        return $query->fetchAll();
+        if($id != 0){
+            $query = $this->db->query('SELECT * FROM socios WHERE idAssoc = '.$id);
+            return $query->fetchAll();
+        }
+        return [];
     }
 
     public function notAction(){

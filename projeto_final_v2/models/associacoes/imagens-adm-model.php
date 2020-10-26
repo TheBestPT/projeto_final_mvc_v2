@@ -22,6 +22,7 @@ class ImagensAdmModel extends ItemsModel
             $query = $this->db->query('SELECT * FROM imagem WHERE idAssoc = '.$id);
             return $query->fetchAll();
         }
+        return [];
     }
 
 

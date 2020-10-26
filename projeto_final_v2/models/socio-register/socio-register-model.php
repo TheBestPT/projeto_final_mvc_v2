@@ -249,6 +249,25 @@
             }
         }
 
+        public function registar($parametros = array()){
+            $idEvento = null;
+            $idSoc = null;
+            if(chk_array($parametros, 1) == 'register'){
+                if(is_numeric(chk_array($parametros, 2))){
+                    $idEvento = chk_array($parametros, 2);
+                    $idSoc = chk_array($parametros, 0);
+                }
+            }
+
+            if(!empty($idEvento) && !empty($idSoc)){
+                $idEvento = (int) $idEvento;
+                $idSoc = (int) $idSoc;
+                $query = $this->db->query('INSERT INTO inscricoes (idEvento, idSocio) VALUES ('.$idEvento.', '.$idSoc.')');
+                header('location: '.HOME_URI.'/perfil/me/'.chk_array($parametros, 0));
+                return;
+            }
+        }
+
         public function listar_eventos($parametros = array()){
             $id = $where = $query_limit = null;
 
@@ -274,14 +293,28 @@
             return $query->fetchAll();
         }
 
-        public function get_id_incricao($id){
-            $query = $this->db->query('SELECT * FROM inscricoes WHERE idSocio = '.$id);
-            return $query->fetchAll();
+        public function get_id_incricao($idEvento, $idSocio){
+            if($idSocio != 0 && $idEvento != 0){
+                $query = $this->db->query('SELECT * FROM inscricoes WHERE idEvento = '.$idEvento.' AND idSocio = '.$idSocio);
+                return $query->fetch();
+            }
+            return [];
         }
 
         public function get_id_evento($id){
-            $query = $this->db->query('SELECT * FROM eventos WHERE idEvento = '.$id);
-            return $query->fetchAll();
+            if($id != 0){
+                $query = $this->db->query('SELECT * FROM eventos WHERE idEvento = '.$id);
+                return $query->fetchAll();
+            }
+            return [];
+        }
+
+        public function get_eventos($id){
+            if($id != 0){
+                $query = $this->db->query('SELECT * FROM associaeventos WHERE idAssoc = '.$id);
+                return $query->fetchAll();
+            }
+            return [];
         }
 
 

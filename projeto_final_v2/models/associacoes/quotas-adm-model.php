@@ -20,5 +20,6 @@ class QuotasAdmModel extends ItemsModel {
             $query = $this->db->query('SELECT * FROM '.$this->table_name.' WHERE idSocio = '.$id);
             return $query->fetchAll();
         }
+        return [];
     }
 }

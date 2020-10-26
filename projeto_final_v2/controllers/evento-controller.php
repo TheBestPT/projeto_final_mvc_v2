@@ -4,7 +4,6 @@ class EventoController extends MainController{
     public $permissions_required = 'gerir-eventos';
     public function index(){
         $this->title = "Evento";
-        //$modelo = $this->load_model('eventos/eventos-adm-model');
         $this->factory->model('eventos');
         $modelo = $this->factory->chamarFabricas();
         require ABSPATH . '/views/_includes/header.php';
@@ -24,7 +23,6 @@ class EventoController extends MainController{
             echo 'Não tem permissoes para aceder a esta pagina';
             return;
         }
-        //$modelo = $this->load_model('eventos/eventos-adm-model');
         $this->factory->model('eventos');
         $modelo = $this->factory->chamarFabricas();
         require ABSPATH . '/views/_includes/header.php';
