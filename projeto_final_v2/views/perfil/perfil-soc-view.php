@@ -58,7 +58,7 @@ $modelo->registar($this->parametros);
     $lista_evento_soc = $modelo->get_eventos($socio['idAssoc']);
     $lista_eventos = null;
     ?>
-    <h1>Lista de eventos em que estás inscrito:</h1>
+    <h1>Lista de eventos:</h1>
     <table id="tbl-projeto" class="list-table">
         <thead>
         <tr>
